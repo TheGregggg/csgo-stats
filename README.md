@@ -1,2 +1,3 @@
-# projet-nsi-2021-interface-bdd
-Interface d'une base de donnée mariaDB via un UI web
+# csgo-stats
+analyse de stats csgo via des démo
+LAMaP Stack 
