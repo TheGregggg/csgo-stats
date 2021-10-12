@@ -7,21 +7,17 @@
     <title>Document</title>
 </head>
 <body>
-    <header>
-        <h2 class="logo">CSGO Stats</h2>
-        <ul>
-            <li class="link"><a href="">Accueil</a></li>
-            <li class="link"><a href="">Joueurs</a></li>
-        </ul>
-    </header>
+
+    <?php include './components/header.php'; ?>
+
     <main>
         <form action="/analyse_demo.php">
             <input type="files" name="" id="">
             <button action="validate">Validé</button>
         </form>
     </main>
-    <footer>
-        <p><a href="https://gregoirelayet.com">Grégoire Layet</a> & Tom Jegou</p>
-    </footer>
+
+    <?php include './components/footer.php'; ?>
+
 </body>
 </html>
