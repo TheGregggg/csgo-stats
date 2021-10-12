@@ -4,7 +4,7 @@ LAMaP Stack
 
 ## Todo
 - MCD
-- MLD
+- ~~MLD~~
 - Wireframe
 - code
 
