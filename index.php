@@ -7,10 +7,11 @@
 <body>
     <?php include './components/header.php'; ?>
 
-    <main class="container">
-        <form action="/analyse_demo.php">
-            <input type="file" name="" id="">
-            <button action="validate">Validé</button>
+    <main class="container" id="home">
+        <form action="/parse_demo.php">
+            <label for="file" class="label-file">Choisir une démo (.dem)</label>
+            <input id="file" class="input-file" type="file" accept=".dem">
+            <input type="submit" value="Validé">
         </form>
     </main>
 

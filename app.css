@@ -9,7 +9,7 @@ Created 11 oct. 2021
     --main-bg-color: #333;
     --secondary-bg-color: #666;
     --main-fg-color: #fcfcfc;
-    --accent-color: rgb(93, 0, 146);
+    --accent-color: rgb(211, 136, 255);
 }
 *{
     margin: 0;
@@ -46,8 +46,21 @@ header div.flex{
     width: 100%;
     height: 100px;
     display: inline-flex;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     align-items: center;
+}
+header div.flex span{
+    flex:1;
+    display: flex;
+}
+header div.flex span.left{
+    justify-content: flex-start;
+}
+header div.flex span.center{
+    justify-content: space-around;
+}
+header div.flex span.right{
+    justify-content: flex-end;
 }
 header .link{
     display: inline-block;
@@ -59,4 +72,30 @@ header .link a{
 }
 header .logo{
     font-size: 36px;
+}
+
+/* FOOTER CSS */
+
+/* HOME CSS */
+main#home{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+main#home form{
+    width: fit-content;
+    margin-bottom: 120px;
+}
+main#home .label-file{
+    display: block;
+    cursor: pointer;
+    color: var(--main-fg-color);
+    font-weight: bold;
+    font-size: 30px;
+}
+main#home .label-file:hover{
+    color: var(--accent-color);
+}
+main#home .input-file{
+    display: none;
 }
