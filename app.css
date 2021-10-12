@@ -4,7 +4,59 @@ Grégoire Layet and Tom Jegou
 Created 11 oct. 2021
 */
 
+/* init + global css*/
+:root{
+    --main-bg-color: #333;
+    --secondary-bg-color: #666;
+    --main-fg-color: #fcfcfc;
+    --accent-color: rgb(93, 0, 146);
+}
 *{
     margin: 0;
     padding: 0;
+}
+a{ 
+    text-decoration: none; 
+    color: var(--main-fg-color);
+}
+body {
+    /* to stick the footer to bottom, even with no content*/
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column; 
+
+    background-color: var(--secondary-bg-color);
+    color: var(--main-fg-color);
+    font-family: 'Arial';
+}
+main {
+    /* to stick the footer to bottom, even with no content*/
+	flex-grow: 1;
+}
+.container{
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* HEADER CSS */
+header {
+    background-color: var(--main-bg-color);
+}
+header div.flex{
+    width: 100%;
+    height: 100px;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header .link{
+    display: inline-block;
+    font-size: 22px;
+    padding: 0 6px;
+}
+header .link a{
+   border-bottom: var(--main-fg-color) 1px solid;
+}
+header .logo{
+    font-size: 36px;
 }
