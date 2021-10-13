@@ -9,7 +9,9 @@ Created 11 oct. 2021
     --main-bg-color: #333;
     --secondary-bg-color: #666;
     --main-fg-color: #fcfcfc;
+    --secondary-fg-color: #ddd;
     --accent-color: rgb(211, 136, 255);
+    --accent-color-darker: rgb(149, 96, 180);
 }
 *{
     margin: 0;
@@ -36,6 +38,9 @@ main {
 .container{
     width: 80%;
     margin: 0 auto;
+}
+.hidden{
+    display: none;
 }
 
 /* HEADER CSS */
@@ -75,6 +80,13 @@ header .logo{
 }
 
 /* FOOTER CSS */
+footer{
+    height: 40px;
+    background-color: var(--main-bg-color);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
 
 /* HOME CSS */
 main#home{
@@ -85,6 +97,7 @@ main#home{
 main#home form{
     width: fit-content;
     margin-bottom: 120px;
+    text-align: center;
 }
 main#home .label-file{
     display: block;
@@ -98,4 +111,19 @@ main#home .label-file:hover{
 }
 main#home .input-file{
     display: none;
+}
+main#home input[type=submit]{
+    margin-top: 15px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    border: 0;
+    color: var(--main-fg-color);
+    background-color: var(--accent-color);
+    transition: background-color 0.1s;
+}
+main#home input[type=submit]:hover{
+    cursor: pointer;
+    background-color: var(--accent-color-darker);
+    transition: background-color 0.1s;
 }
