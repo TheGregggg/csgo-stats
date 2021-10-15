@@ -130,8 +130,8 @@ main#home .input-file{
 }
 main#home input[type=submit]{
     margin-top: 15px;
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 10px 25px;
+    border-radius: 30px;
     font-size: 18px;
     border: 0;
     color: var(--main-fg-color);
@@ -142,4 +142,7 @@ main#home input[type=submit]:hover{
     cursor: pointer;
     background-color: var(--accent-color-darker);
     transition: background-color 0.1s;
+}
+body.light main#home input[type=submit]{
+    color: var(--secondary-bg-color);
 }

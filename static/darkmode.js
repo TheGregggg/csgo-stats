@@ -40,16 +40,21 @@ function applyDarkMode(){
     };
 
     if (darkMode == "light"){
-        document.getElementById("sun-icon").classList.remove("hidden")
-        document.getElementById("moon-icon").classList.add("hidden")
+        document.getElementById("sun-icon").classList.remove("hidden");
+        document.getElementById("moon-icon").classList.add("hidden");
+
+        document.body.classList.add("light");
+        document.body.classList.remove("dark");
     }
     else {
-        document.getElementById("moon-icon").classList.remove("hidden")
-        document.getElementById("sun-icon").classList.add("hidden")
+        document.getElementById("moon-icon").classList.remove("hidden");
+        document.getElementById("sun-icon").classList.add("hidden");
+
+        document.body.classList.add("dark");
+        document.body.classList.remove("light");
     }
 }
 window.onload = function() {
     document.body.style.setProperty("transition", "color 0.2s linear 0s, background-color 0.2s linear 0s");
-
 };
 applyDarkMode()
