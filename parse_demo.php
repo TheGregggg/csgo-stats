@@ -2,7 +2,7 @@
 
 $demo_path = $_FILES['demo']['tmp_name'];
 
-$freq_demo_parsed = 16
+$freq_demo_parsed = 16;
 
 // DEMO TO JSON PARSING
 //detect the os for cmd execution
