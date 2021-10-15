@@ -7,7 +7,8 @@
             <span class="center">
                 <ul class="links">
                     <li class="link"><a href="./">Accueil</a></li>
-                    <li class="link"><a href="./joueur.php">Joueurs</a></li>
+                    <li class="link"><a href="./joueurs.php">Joueurs</a></li>
+                    <li class="link"><a href="./parties.php">Parties</a></li>
                 </ul>
             </span>
             <span class="right">
