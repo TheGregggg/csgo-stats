@@ -49,7 +49,6 @@ function applyDarkMode(){
     }
 }
 window.onload = function() {
-    console.log('window - onload'); // 4th
     document.body.style.setProperty("transition", "color 0.2s linear 0s, background-color 0.2s linear 0s");
 
 };
