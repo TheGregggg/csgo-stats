@@ -2,6 +2,8 @@
 analyse de stats csgo via des démo
 LAMaP Stack 
 
+Made with love by Greg and Tom
+
 ## Todo
 - MCD
 - ~~MLD~~
