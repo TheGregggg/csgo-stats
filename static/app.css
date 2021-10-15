@@ -16,6 +16,7 @@ Created 11 oct. 2021
 *{
     margin: 0;
     padding: 0;
+    /*transition: color, background-color 0.2s; */
 }
 a{ 
     text-decoration: none; 
@@ -77,6 +78,21 @@ header .link a{
 }
 header .logo{
     font-size: 36px;
+}
+
+header #dark-mode-btn{
+    border: 0;
+    background-color: var(--secondary-bg-color);
+    border-radius: 50px;
+    height: 35px;
+    width: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+header #dark-mode-btn img{
+    height: 25px;
+    width: auto;
 }
 
 /* FOOTER CSS */

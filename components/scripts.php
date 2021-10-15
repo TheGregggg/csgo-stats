@@ -1,0 +1,1 @@
+<script src="./static/darkmode.js"></script>
