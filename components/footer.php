@@ -1,3 +1,3 @@
 <footer>
-    <p><a href="https://gregoirelayet.com">Grégoire Layet</a> & Tom Jegou</p>
+    <p><a href="https://gregoirelayet.com" target="_blank" >Grégoire Layet</a> & Tom Jegou</p>
 </footer>
