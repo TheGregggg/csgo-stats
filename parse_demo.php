@@ -20,5 +20,5 @@ $players = [];
 foreach ($demo['entities'] as $value){
     $players[$value['id']] = $value['name'];
 }
-
+print_r($players)
 ?>
