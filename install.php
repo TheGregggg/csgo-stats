@@ -6,7 +6,7 @@
 <?php
 
 //Informations de conenxtion à la base de données
-include 'bddinfo.php';
+include '_bdd_info.php';
 
 //Connexion à la base de données
 
@@ -30,14 +30,14 @@ try {
 	// Suppresion des tables existantes
 	$requete = "
         DROP TABLE IF EXISTS 
-        $dbBase.Players, 
-        $dbBase.Demos, 
+        $dbBase.Player_in_Round,
+        $dbBase.Player_in_Demo, 
         $dbBase.Damages,
         $dbBase.Weapon, 
         $dbBase.Rounds, 
-        $dbBase.Map, 
-        $dbBase.Player_in_Demo, 
-        $dbBase.Player_in_Round;";
+        $dbBase.Demos, 
+        $dbBase.Players, 
+        $dbBase.Map; ";
 	$bdd->prepare($requete)->execute();
 	
 	echo "Tables existantes effacées (si elles existaient)<br/>";
@@ -67,10 +67,10 @@ try {
 	$requete = "CREATE TABLE $dbBase.Weapon(
         id INT UNSIGNED NOT NULL PRIMARY KEY,
         Name VARCHAR(255) NOT NULL,
-        Description TEXT NOT NULL,
-        Magazine_size INT NOT NULL,
-        Damage_per_bullet INT NOT NULL,
-        Bullet_per_seconde INT NOT NULL
+        Description TEXT,
+        Magazine_size INT,
+        Damage_per_bullet INT,
+        Bullet_per_seconde FLOAT
     ) ENGINE = InnoDB;";
 	
 	$bdd->prepare($requete)->execute();
@@ -172,18 +172,34 @@ try {
 	echo "Table 'Damages' créée<br>";
 	
 	echo "<h1>Ajout des Valeurs</h1>";
-	
-	$weapons = [
-		['admin','groupe des super dieux'],
-		['user','groupe de la populasse'],
-	];
-	$request = $bdd->prepare("INSERT INTO $dbBase.groupe (libelle, description) VALUES (?,?)");
+
+    
+
+	$request = $bdd->prepare("INSERT INTO $dbBase.Weapon (id, Name, Description, Magazine_size, Damage_per_bullet, Bullet_per_seconde) VALUES (?,?,?,?,?,?)");
 	try {
 		$bdd->beginTransaction();
-		foreach ($data_groupe as $row)
-		{
-			$request->execute($row);
-		}
+
+        $weapon_json_file = file_get_contents("weapon.json");
+        $weapon_json = json_decode($weapon_json_file, true);
+        foreach($weapon_json as $weapon_name=>$weapon_stats){
+            $magazine_size = 0;
+            if($weapon_stats['magazine_size'] !== ""){
+                $magazine_size = intval($weapon_stats['magazine_size']);
+            }
+
+            $Damage_per_bullet = 0;
+            if($weapon_stats['Damage_per_bullet'] !== ""){
+                $Damage_per_bullet = intval($weapon_stats['Damage_per_bullet']);
+            }
+
+            $Bullet_per_Sec = 0;
+            if($weapon_stats['Bullet_per_Sec'] !== ""){
+                $Bullet_per_Sec = 1/floatval($weapon_stats['Bullet_per_Sec']);
+            }
+            $val = [$weapon_stats['id'], $weapon_name, $weapon_stats['description'], $magazine_size, $Damage_per_bullet, $Bullet_per_Sec];
+            $request->execute($val);
+        }
+
 		$bdd->commit(); // Valide la modification de la base de données
 		echo "Valeurs de la table groupe ajoutées.<br>";
 	}catch (Exception $e){
@@ -191,25 +207,8 @@ try {
 		throw $e;
 	}
 	
-	
-	
-	//methode 2 d'ajout de valeur : ajout un par un
-	$request = $bdd->prepare("INSERT INTO $dbBase.utilisateur (nom, prenom, date_de_naissance, groupe) VALUES (?,?,?,?)");
-	try {
-		$bdd->beginTransaction();
-		$request->execute(['Plantard', 'M.','1985-11-29', 'admin']);
-		$request->execute(['Dupont', 'Fred','2014-12-08', 'user']);
-		$request->execute(['Dupont', 'Georges', '2018-04-05', 'user']);
-		$bdd->commit(); // Valide la modification de la base de données
-		echo "Valeurs de la table utilisateur ajoutées.<br/>";
-	}catch (Exception $e){
-		$bdd->rollback(); // en cas d'érreur, annule les modifications.
-		throw $e;
-	}
-	
-	echo "Redirection vers la page de lecture dans 3 secondes...";
-	
-	header('Refresh:3; url=./lire.php');
+	echo "Redirection vers la page d'accueil dans 3 secondes...";
+	header('Refresh:3; url=./');
 	exit();
 	
 } catch ( PDOException $e ) {

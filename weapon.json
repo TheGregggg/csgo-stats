@@ -1,10 +1,10 @@
 {
     "unknown":{
        "id":"0",
-       "description":"None",
-       "magazine_size":"None",
-       "Damage_per_bullet":"None",
-       "Bullet_per_Sec":"None"
+       "description":"",
+       "magazine_size":"",
+       "Damage_per_bullet":"",
+       "Bullet_per_Sec":""
     },
     "p2000":{
        "id":"1",
@@ -248,92 +248,92 @@
      "zeus":{
         "id":"401",
         "description":"Perfect for close-range ambushes and enclosed area encounters, the single-shot x27 Zeus is capable of incapacitating an enemy in a single hit.",
-        "magazine_size":"None",
-        "Damage_per_bullet":"None",
-        "Bullet_per_Sec":"None"
+        "magazine_size":"",
+        "Damage_per_bullet":"",
+        "Bullet_per_Sec":""
      },
      "kevlar":{
         "id":"402",
-        "description":"None",
-        "magazine_size":"None",
-        "Damage_per_bullet":"None",
-        "Bullet_per_Sec":"None"
+        "description":"",
+        "magazine_size":"",
+        "Damage_per_bullet":"",
+        "Bullet_per_Sec":""
      },
      "helmet":{
         "id":"403",
-        "description":"None",
-        "magazine_size":"None",
-        "Damage_per_bullet":"None",
-        "Bullet_per_Sec":"None"
+        "description":"",
+        "magazine_size":"",
+        "Damage_per_bullet":"",
+        "Bullet_per_Sec":""
      },
      "bomb":{
         "id":"404",
-        "description":"None",
-        "magazine_size":"None",
-        "Damage_per_bullet":"None",
-        "Bullet_per_Sec":"None"
+        "description":"",
+        "magazine_size":"",
+        "Damage_per_bullet":"",
+        "Bullet_per_Sec":""
      },
      "knife":{
         "id":"405",
-        "description":"None",
-        "magazine_size":"None",
-        "Damage_per_bullet":"None",
-        "Bullet_per_Sec":"None"
+        "description":"",
+        "magazine_size":"",
+        "Damage_per_bullet":"",
+        "Bullet_per_Sec":""
      },
      "defusekit":{
         "id":"406",
         "description":"This item is a defuse kit. Once found it greatly reduces the time needed to defuse a live bomb",
-        "magazine_size":"None",
-        "Damage_per_bullet":"None",
-        "Bullet_per_Sec":"None"
+        "magazine_size":"",
+        "Damage_per_bullet":"",
+        "Bullet_per_Sec":""
      },
      "world":{
         "id":"407",
-        "description":"None",
-        "magazine_size":"None",
-        "Damage_per_bullet":"None",
-        "Bullet_per_Sec":"None"
+        "description":"",
+        "magazine_size":"",
+        "Damage_per_bullet":"",
+        "Bullet_per_Sec":""
      },
      "decoy":{
         "id":"501",
         "description":"When thrown, the decoy grenade emulates the sound of the most powerful weapon you are carrying, creating the illusion of additional supporting forces.",
-        "magazine_size":"None",
-        "Damage_per_bullet":"None",
-        "Bullet_per_Sec":"None"
+        "magazine_size":"",
+        "Damage_per_bullet":"",
+        "Bullet_per_Sec":""
      },
      "molotov":{
         "id":"502",
         "description":"The Molotov is a powerful and unpredictable area denial weapon that bursts into flames when thrown on the ground, injuring any player in its radius.",
-        "magazine_size":"None",
-        "Damage_per_bullet":"None",
-        "Bullet_per_Sec":"None"
+        "magazine_size":"",
+        "Damage_per_bullet":"",
+        "Bullet_per_Sec":""
      },
      "incendiary":{
         "id":"503",
         "description":"When thrown, the incendiary grenade releases a high-temperature chemical reaction capable of burning anyone within its wide blast radius.",
-        "magazine_size":"None",
-        "Damage_per_bullet":"None",
-        "Bullet_per_Sec":"None"
+        "magazine_size":"",
+        "Damage_per_bullet":"",
+        "Bullet_per_Sec":""
      },
      "flash":{
         "id":"504",
         "description":"The non-lethal flashbang grenade temporarily blinds anybody within its concussive blast, making it perfect for flushing out closed-in areas. Its loud explosion also temporarily masks the sound of footsteps.",
-        "magazine_size":"None",
-        "Damage_per_bullet":"None",
-        "Bullet_per_Sec":"None"
+        "magazine_size":"",
+        "Damage_per_bullet":"",
+        "Bullet_per_Sec":""
      },
      "smoke":{
         "id":"505",
         "description":"The smoke grenade creates a medium-area smoke screen. It can effectively hide your team from snipers, or even just create a useful distraction.",
-        "magazine_size":"None",
-        "Damage_per_bullet":"None",
-        "Bullet_per_Sec":"None"
+        "magazine_size":"",
+        "Damage_per_bullet":"",
+        "Bullet_per_Sec":""
      },
      "he":{
         "id":"506",
         "description":"The high explosive fragmentation grenade administers high damage through a wide area, making it ideal for clearing out hostile rooms.",
-        "magazine_size":"None",
-        "Damage_per_bullet":"None",
-        "Bullet_per_Sec":"None"
+        "magazine_size":"",
+        "Damage_per_bullet":"",
+        "Bullet_per_Sec":""
      }
   }
