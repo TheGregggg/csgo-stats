@@ -20,3 +20,10 @@ Made with love by Greg and Tom
 # MLD
 https://drawsql.app/greggggcorp/diagrams/csgo-stats
 
+
+# Developpement
+Start xampp sur ubuntu
+```
+sudo /opt/lampp/lampp start
+```
+
