@@ -6,7 +6,7 @@ function get_event_in_tick($tick_obj, $event_name)
             return $event;
         }
     }
-    return null;
+    return NULL;
 }
 
 function get_attr_in_event($event_obj, $attr_name)
@@ -16,7 +16,7 @@ function get_attr_in_event($event_obj, $attr_name)
             return $attr;
         }
     }
-    return null;
+    return NULL;
 }
 
 function get_player_in_snapshot($snapshot_obj, $player_id)
@@ -26,6 +26,16 @@ function get_player_in_snapshot($snapshot_obj, $player_id)
             return $entity;
         }
     }
-    return null;
+    return NULL;
+}
+
+function get_last_player_pos($demo, $snap_tick, $player_id){
+    $player = get_player_in_snapshot($demo['snapshots'][$snap_tick], $player_id);
+    if(is_null($player)){
+        return get_last_player_pos($demo, 650, $player_id);
+    }
+    else{
+        return $player['positions'][0];
+    }
 }
 ?>

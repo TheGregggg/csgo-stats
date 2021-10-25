@@ -32,7 +32,7 @@ try {
         DROP TABLE IF EXISTS 
         $dbBase.Player_in_Round,
         $dbBase.Player_in_Demo, 
-        $dbBase.Damages,
+        $dbBase.Kills,
         $dbBase.Weapons, 
         $dbBase.Rounds, 
         $dbBase.Demos, 
@@ -91,7 +91,7 @@ try {
 	$requete = "CREATE TABLE $dbBase.Rounds(
         id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
         tick_start INT NOT NULL,
-        winner VARCHAR(2) NOT NULL,
+        winner INT NOT NULL,
         FK_demo INT UNSIGNED NOT NULL,
     
         FOREIGN KEY(FK_demo) REFERENCES Demos(id)
@@ -137,12 +137,9 @@ try {
 	echo "Table 'Player_in_Round' créée<br>";
 
     // Création de la table Damages
-	$requete = "CREATE TABLE $dbBase.Damages(
+	$requete = "CREATE TABLE $dbBase.Kills(
         id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
         tick INT NOT NULL,
-        HS TINYINT(1) NOT NULL,
-        damages INT NOT NULL,
-        killed TINYINT(1) NOT NULL,
         k_pos_x INT NOT NULL,
         k_pos_y INT NOT NULL,
         v_pos_x INT NOT NULL,
@@ -167,7 +164,7 @@ try {
     ) ENGINE = InnoDB;";
 	
 	$bdd->prepare($requete)->execute();
-	echo "Table 'Damages' créée<br>";
+	echo "Table 'kills' créée<br>";
 	
 	echo "<h1>Ajout des Valeurs</h1>";
 

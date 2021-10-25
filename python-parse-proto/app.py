@@ -1,4 +1,5 @@
 import json
+from os import spawnl
 
 weapon = {
     '0': 'Unknown', 
@@ -72,29 +73,31 @@ def get_attr_in_event(event, attr):
             return a
     return None
 
-def get_player_in_snapshot(snapshot, player_name):
+def get_player_in_snapshot(snapshot, player_id):
     for player in snapshot['entityUpdates']:
-        if player['entityId'] == ent_by_name[player_name]:
+        if player['entityId'] == player_id:
             return player
     return None
 
-player_name = 'Gregggg_'
+def get_last_player_pos(snap_tick, player_id):
+    player = get_player_in_snapshot(data['snapshots'][snap_tick], player_id)
+    if player is None:
+        return get_last_player_pos(snap_tick-1, player_id)
+    else:
+        return player['positions'][0]
 
-round_cs = 0
 for tick in data['ticks']:
-    event = get_event_in_tick(tick, 'round_ended')
-    if event:
-        round_cs += 1
     event = get_event_in_tick(tick, 'kill')
     if event:
         killer = get_attr_in_event(event, 'killer')
-        if killer and killer['numVal'] == ent_by_name[player_name]:
-            victim = ent_by_id[get_attr_in_event(event, 'victim')['numVal']]
-            weap = weapon[str(get_attr_in_event(event, 'weapon')['numVal'])]
-            snapshot = data['snapshots'][int(tick['nr']/4)]
-            playerInfo = get_player_in_snapshot(snapshot, player_name)
-            pos = playerInfo['positions'][0]
-            print(f"Tick event : {snapshot['tick']} - Tick snapshot : {tick['nr']} -> Round {round_cs} : Gregggg_ a tué {victim} avec {weap} en x:{pos['x']} y:{pos['y']}")
-
+        if killer:
+            killer = killer['numVal']
+            victim = get_attr_in_event(event, 'victim')['numVal']
+            weap = get_attr_in_event(event, 'weapon')['numVal']
+            k_pos = get_last_player_pos(int(tick['nr']/8), killer)
+            v_pos = get_last_player_pos(int(tick['nr']/8), victim)
+            print(f"{ent_by_id[killer]} a tué {ent_by_id[victim]} avec {weapon[str(weap)]} ; kpos: {k_pos} vpos: {v_pos}")
+    
+        
 
 #print(data['snapshots'][1])
