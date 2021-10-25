@@ -13,6 +13,9 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') { //its windows
     exec('./bin/linux/csminify -demo '. $demo_path .' -freq '. $freq_demo_parsed .' -out ./temp/demo.json');
 }
 
-parse_demo("./temp/demo.json", $freq_demo_parsed)
+$demo_id = parse_demo("./temp/demo.json", $freq_demo_parsed);
+
+header("Refresh:0; url=./demo?id=$demo_id");
+exit();
 
 ?>

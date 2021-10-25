@@ -133,5 +133,8 @@ function parse_demo($demo_path, $freq_demo_parsed){
             }
         }
     }
+
+    
+    return $demo_id;
 }
 ?>
