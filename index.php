@@ -1,8 +1,3 @@
-<?php
-ini_set('post_max_size', '1000M');
-ini_set('upload_max_filesize', '1000M');
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -13,7 +8,7 @@ ini_set('upload_max_filesize', '1000M');
     <?php include './components/header.php'; ?>
 
     <main class="container" id="home">
-        <form enctype="multipart/form-data" action="./parse_demo.php" method="post">
+        <form enctype="multipart/form-data" action="./parse_demo" method="post">
             <label for="file" class="label-file">Choisir une démo (.dem)</label>
             <input id="file" class="input-file" type="file" name="demo" accept=".dem" required>
             <input class="hidden" id="submit" type="submit" value="Validé">

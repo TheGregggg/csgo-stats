@@ -17,7 +17,7 @@ const themes = {
         "--main-bg-color": "#e1e1e1",
         "--secondary-bg-color": "#fff",
         "--main-fg-color": "#333",
-        "--secondary-fg-color": "#ccc",
+        "--secondary-fg-color": "#888",
         "--accent-color": "rgb(149, 96, 180)",
         "--accent-color-darker": "rgb(211, 136, 255)"
     },
