@@ -33,11 +33,11 @@ try {
         $dbBase.Player_in_Round,
         $dbBase.Player_in_Demo, 
         $dbBase.Damages,
-        $dbBase.Weapon, 
+        $dbBase.Weapons, 
         $dbBase.Rounds, 
         $dbBase.Demos, 
         $dbBase.Players, 
-        $dbBase.Map; ";
+        $dbBase.Maps; ";
 	$bdd->prepare($requete)->execute();
 	
 	echo "Tables existantes effacées (si elles existaient)<br/>";
@@ -52,7 +52,7 @@ try {
 	echo "Table 'players' créée<br>";
 
     // Création de la table map
-	$requete = "CREATE TABLE $dbBase.Map(
+	$requete = "CREATE TABLE $dbBase.Maps(
         Name VARCHAR(255) NOT NULL PRIMARY KEY,
         Image VARCHAR(255) NOT NULL,
         Dimensions_x INT NOT NULL,
@@ -63,7 +63,7 @@ try {
 	echo "Table 'map' créée<br>";
 
     // Création de la table weapon
-	$requete = "CREATE TABLE $dbBase.Weapon(
+	$requete = "CREATE TABLE $dbBase.Weapons(
         id INT UNSIGNED NOT NULL PRIMARY KEY,
         Name VARCHAR(255) NOT NULL,
         Description TEXT,
@@ -73,14 +73,14 @@ try {
     ) ENGINE = InnoDB;";
 	
 	$bdd->prepare($requete)->execute();
-	echo "Table 'weapon' créée<br>";
+	echo "Table 'weapons' créée<br>";
 
     // Création de la table demos
 	$requete = "CREATE TABLE $dbBase.Demos(
         id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
         Date DATE NOT NULL,
         FK_Map VARCHAR(255) NOT NULL,
-        FOREIGN KEY (FK_Map) REFERENCES Map(Name)
+        FOREIGN KEY (FK_Map) REFERENCES Maps(Name)
             ON DELETE CASCADE
             ON UPDATE CASCADE
     ) ENGINE = InnoDB;";
@@ -156,7 +156,7 @@ try {
         FOREIGN KEY(FK_round) REFERENCES Rounds(id)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
-        FOREIGN KEY(FK_Killed_with_weapon) REFERENCES Weapon(id)
+        FOREIGN KEY(FK_Killed_with_weapon) REFERENCES Weapons(id)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
         FOREIGN KEY(FK_killer) REFERENCES Players(id)
@@ -173,23 +173,41 @@ try {
 	echo "<h1>Ajout des Valeurs</h1>";
 
     
-
-	$request = $bdd->prepare("INSERT INTO $dbBase.Weapon (id, Name, Description, Magazine_size, Damage_per_bullet, Bullet_per_seconde) VALUES (?,?,?,?,?,?)");
+	$request = $bdd->prepare("INSERT INTO $dbBase.Weapons (id, Name, Description, Magazine_size, Damage_per_bullet, Bullet_per_seconde) VALUES (?,?,?,?,?,?)");
 	try {
 		$bdd->beginTransaction();
 
-        $weapon_json_file = file_get_contents("weapon.json");
-        $weapon_json = json_decode($weapon_json_file, true);
-        foreach($weapon_json as $weapon_name=>$weapon_stats){
+        $weapons_json_file = file_get_contents("db/weapons.json");
+        $weapons_json = json_decode($weapons_json_file, true);
+        foreach($weapons_json as $weapon_name=>$weapon_stats){
             $Bullet_per_Sec = $weapon_stats['Bullet_per_Sec'];
             if($Bullet_per_Sec != 0){ $Bullet_per_Sec = 1/$Bullet_per_Sec; }
 
             $val = [$weapon_stats['id'], $weapon_name, $weapon_stats['description'], $weapon_stats['magazine_size'], $weapon_stats['Damage_per_bullet'], $Bullet_per_Sec];
             $request->execute($val);
         }
-        
+
 		$bdd->commit(); // Valide la modification de la base de données
-		echo "Valeurs de la table groupe ajoutées.<br>";
+		echo "Valeurs de la table 'Weapons' ajoutées.<br>";
+
+	}catch (Exception $e){
+		$bdd->rollback(); // en cas d'érreur, annule les modifications.
+		throw $e;
+	}
+
+    $request = $bdd->prepare("INSERT INTO $dbBase.Maps (Name, Image, Dimensions_x, Dimensions_y) VALUES (?,?,?,?)");
+	try {
+		$bdd->beginTransaction();
+
+        $maps_json_file = file_get_contents("db/maps.json");
+        $maps_json = json_decode($maps_json_file, true);
+        foreach($maps_json as $map_name=>$map_info){
+            $val = [$map_name, $map_info['Image'], $map_info['Dim_x'], $map_info['Dim_y']];
+            $request->execute($val);
+        }
+
+		$bdd->commit(); // Valide la modification de la base de données
+		echo "Valeurs de la table 'Maps' ajoutées.<br>";
 
 	}catch (Exception $e){
 		$bdd->rollback(); // en cas d'érreur, annule les modifications.
@@ -197,7 +215,7 @@ try {
 	}
 	
 	echo "Redirection vers la page d'accueil dans 3 secondes...";
-	header('Refresh:3; url=./');
+	//header('Refresh:3; url=./');
 	exit();
 	
 } catch ( PDOException $e ) {

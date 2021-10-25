@@ -1,0 +1,47 @@
+{
+    "de_inferno" : {
+        "Image" : "de_inferno_radar.png",
+        "Dim_x" : 0,
+        "Dim_y" : 0
+    },
+    "de_mirage" : {
+        "Image" : "de_mirage_radar.png",
+        "Dim_x" : 0,
+        "Dim_y" : 0
+    },
+    "de_dust2" : {
+        "Image" : "de_dust2_radar.png",
+        "Dim_x" : 0,
+        "Dim_y" : 0
+    },
+    "de_cache" : {
+        "Image" : "de_cache_radar.png",
+        "Dim_x" : 0,
+        "Dim_y" : 0
+    },
+    "de_train" : {
+        "Image" : "de_train_radar.png",
+        "Dim_x" : 0,
+        "Dim_y" : 0
+    },
+    "de_ancient" : {
+        "Image" : "de_ancient_radar.png",
+        "Dim_x" : 0,
+        "Dim_y" : 0
+    },
+    "de_nuke" : {
+        "Image" : "de_nuke_radar.png",
+        "Dim_x" : 0,
+        "Dim_y" : 0
+    },
+    "de_vertgio" : {
+        "Image" : "de_vertigo_radar.png",
+        "Dim_x" : 0,
+        "Dim_y" : 0
+    },
+    "de_overpass" : {
+        "Image" : "de_overpass_radar.png",
+        "Dim_x" : 0,
+        "Dim_y" : 0
+    }
+}
