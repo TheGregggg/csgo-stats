@@ -53,8 +53,7 @@ try {
 
     // Création de la table map
 	$requete = "CREATE TABLE $dbBase.Map(
-        id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        Name VARCHAR(255) NOT NULL,
+        Name VARCHAR(255) NOT NULL PRIMARY KEY,
         Image VARCHAR(255) NOT NULL,
         Dimensions_x INT NOT NULL,
         Dimensions_y INT NOT NULL
@@ -80,8 +79,8 @@ try {
 	$requete = "CREATE TABLE $dbBase.Demos(
         id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
         Date DATE NOT NULL,
-        FK_Map INT UNSIGNED NOT NULL,
-        FOREIGN KEY (FK_Map) REFERENCES Map(id)
+        FK_Map VARCHAR(255) NOT NULL,
+        FOREIGN KEY (FK_Map) REFERENCES Map(Name)
             ON DELETE CASCADE
             ON UPDATE CASCADE
     ) ENGINE = InnoDB;";
@@ -182,26 +181,16 @@ try {
         $weapon_json_file = file_get_contents("weapon.json");
         $weapon_json = json_decode($weapon_json_file, true);
         foreach($weapon_json as $weapon_name=>$weapon_stats){
-            $magazine_size = 0;
-            if($weapon_stats['magazine_size'] !== ""){
-                $magazine_size = intval($weapon_stats['magazine_size']);
-            }
+            $Bullet_per_Sec = $weapon_stats['Bullet_per_Sec'];
+            if($Bullet_per_Sec != 0){ $Bullet_per_Sec = 1/$Bullet_per_Sec; }
 
-            $Damage_per_bullet = 0;
-            if($weapon_stats['Damage_per_bullet'] !== ""){
-                $Damage_per_bullet = intval($weapon_stats['Damage_per_bullet']);
-            }
-
-            $Bullet_per_Sec = 0;
-            if($weapon_stats['Bullet_per_Sec'] !== ""){
-                $Bullet_per_Sec = 1/floatval($weapon_stats['Bullet_per_Sec']);
-            }
-            $val = [$weapon_stats['id'], $weapon_name, $weapon_stats['description'], $magazine_size, $Damage_per_bullet, $Bullet_per_Sec];
+            $val = [$weapon_stats['id'], $weapon_name, $weapon_stats['description'], $weapon_stats['magazine_size'], $weapon_stats['Damage_per_bullet'], $Bullet_per_Sec];
             $request->execute($val);
         }
-
+        
 		$bdd->commit(); // Valide la modification de la base de données
 		echo "Valeurs de la table groupe ajoutées.<br>";
+
 	}catch (Exception $e){
 		$bdd->rollback(); // en cas d'érreur, annule les modifications.
 		throw $e;
