@@ -44,8 +44,7 @@ try {
 	
 	// Création de la table players
 	$requete = "CREATE TABLE $dbBase.Players(
-        id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        Name VARCHAR(255) NOT NULL
+        Name VARCHAR(255) NOT NULL PRIMARY KEY
 	) ENGINE = InnoDB;";
 	
 	$bdd->prepare($requete)->execute();
@@ -105,11 +104,11 @@ try {
     
     // Création de la table Player_in_Demo
 	$requete = "CREATE TABLE $dbBase.Player_in_Demo(
-        FK_Player INT UNSIGNED NOT NULL,
+        FK_Player VARCHAR(255) NOT NULL,
         FK_Demo INT UNSIGNED NOT NULL,
         PRIMARY KEY (FK_Player, FK_Demo),
     
-        FOREIGN KEY(FK_Player) REFERENCES Players(id)
+        FOREIGN KEY(FK_Player) REFERENCES Players(Name)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
         FOREIGN KEY(FK_Demo) REFERENCES Demos(id)
@@ -122,14 +121,14 @@ try {
 
     // Création de la table Player_in_Round
 	$requete = "CREATE TABLE $dbBase.Player_in_Round(
+        FK_Player VARCHAR(255) NOT NULL,
         FK_Round INT UNSIGNED NOT NULL,
-        FK_Player INT UNSIGNED NOT NULL,
         PRIMARY KEY (FK_Round, FK_Player),
     
         FOREIGN KEY(FK_Round) REFERENCES Rounds(id)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
-        FOREIGN KEY(FK_Player) REFERENCES Players(id)
+        FOREIGN KEY(FK_Player) REFERENCES Players(Name)
             ON DELETE CASCADE
             ON UPDATE CASCADE
     ) ENGINE = InnoDB;";
@@ -149,9 +148,9 @@ try {
         v_pos_x INT NOT NULL,
         v_pos_y INT NOT NULL,
         FK_round INT UNSIGNED NOT NULL,
-        FK_killer INT UNSIGNED NOT NULL,
+        FK_killer VARCHAR(255) NOT NULL,
         FK_Killed_with_weapon INT UNSIGNED NOT NULL,
-        FK_victim INT UNSIGNED NOT NULL,
+        FK_victim VARCHAR(255) NOT NULL,
     
         FOREIGN KEY(FK_round) REFERENCES Rounds(id)
             ON DELETE CASCADE
@@ -159,10 +158,10 @@ try {
         FOREIGN KEY(FK_Killed_with_weapon) REFERENCES Weapons(id)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
-        FOREIGN KEY(FK_killer) REFERENCES Players(id)
+        FOREIGN KEY(FK_killer) REFERENCES Players(Name)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
-        FOREIGN KEY(FK_victim) REFERENCES Players(id)
+        FOREIGN KEY(FK_victim) REFERENCES Players(Name)
             ON DELETE CASCADE
             ON UPDATE CASCADE
     ) ENGINE = InnoDB;";
