@@ -7,7 +7,12 @@ try {
 } catch ( PDOException $e ) {
 	echo 'Échec connexion PDO : ' . $e->getMessage() . "<br>\n";
 }
+
 $demo_id = $_GET['id'];
+if(! isset($demo_id)){
+    header("Location: ./"); //redirect if no demo id in url
+}
+
 $request = "SELECT * FROM Demos JOIN Maps ON Demos.FK_Map = Maps.Name WHERE Demos.id='$demo_id' ;";
 $req = $bdd->prepare($request);
 $req->execute();

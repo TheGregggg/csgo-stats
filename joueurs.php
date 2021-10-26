@@ -27,51 +27,30 @@ $players = $req->fetchAll();
     <?php include './components/header.php'; ?>
 
     <main class="container" id="players">
-        <div class="search-bar">
-            <span>Rechercher : </span>
-            <input onkeyup="search_bar()" type="text" name="search" id="search">
-            <!--<img src="./static/search.svg">-->
+        <div class="header">
+            <h2 class="left-item">Joueurs : </h2>
+            <div class="search-bar right-item">
+                <span>Carte : </span>
+                <input onkeyup="search_bar()" type="text" name="search" id="search">
+                <!--<img src="./static/search.svg">-->
+            </div>
         </div>
         <div class="players">
             <ul id="ul">
-                <li class="header">
-                    <span class="left-item">Joueur </span> 
-                    <span class="right-item">
-                        <span class="games">Parties</span> 
-                    </span> 
-                </li>
                 <?php foreach($players as $player){?>
-                <li class="elem"> 
-                    <span class="left-item"> <?php echo $player['name']; ?> </span> 
-                    <span class="right-item">
-                        <span class="games"> <?php echo $player['games']; ?> </span> 
-                    </span> 
-                </li>
+                    <a href="./joueur?name=<?php echo $player['name']; ?>">
+                        <li class="elem"> 
+                            <span class="left-item"> <?php echo $player['name']; ?> </span> 
+                            <span class="right-item">
+                                <span class="games"> <?php echo $player['games']; ?> Parties</span> 
+                            </span> 
+                        </li>
+                    </a>
                 <?php } ?>
             </ul>
         </div>
     </main>
-    <script>
-    function search_bar() {
-    // Declare variables
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById('search');
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("ul");
-    li = ul.getElementsByClassName('elem');
-    
-    // Loop through all list items, and hide those who don't match the search query
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("span")[0];
-        txtValue = a.textContent || a.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        li[i].style.display = "";
-        } else {
-        li[i].style.display = "none";
-        }
-    }
-    }
-    </script>
+    <script src="./static/search_bar.js"></script>
 
     <?php include './components/footer.php'; ?>
     <?php include './components/scripts.php'; ?>

@@ -215,11 +215,16 @@ main.container .card.scores li:first-child{
 }
 
 /* players and demos pages*/
+main.container div.header{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
 .search-bar{
     display: flex;
     justify-content: end;
     align-items: center;
-    margin-top: 15px;
 }
 
 .search-bar input{
@@ -230,6 +235,15 @@ main.container .card.scores li:first-child{
     padding: 5px 10px;
     width: 160PX;
     color: var(--main-fg-color)
+}
+.search-bar input[type=date]{
+    width: fit-content;
+}
+.search-bar input[type=date]::-webkit-inner-spin-button { 
+    color: var(--accent-color)
+}
+.search-bar span{
+    margin-left: 10px;
 }
 .search-bar img{
     height: 20px;
@@ -243,17 +257,55 @@ main.container .card.scores li:first-child{
     list-style: none;
     padding: 10px 15px;
 }
-.players .header,
-.demos   .header{
-    margin-top: 10px;
-    padding-bottom: 2px;
-    margin-bottom: 8px;
-    border-bottom: 1px solid var(--secondary-fg-color);
-}
 .players .elem,
 .demos   .elem{
     border: 1px solid var(--accent-color);
     border-radius: 20px;
     margin-bottom: 8px;
     box-shadow: var(--accent-color-darker) 0px 4px 12px;
+}
+
+/* media queries */
+@media ( max-width : 1100px ){
+    .container{
+        width: 95%;
+    }
+}
+@media ( max-width : 900px ){
+    .container{
+        width: 98%;
+    }
+    main.container div.header{
+        flex-direction: column;
+    }
+    .search-bar {
+        justify-content: start;
+    }
+    .search-bar > div{
+        display: flex;
+        flex-direction: column;
+        
+    }
+}
+@media ( max-width : 550px ){
+    
+    main.container div.header{
+        flex-direction: column;
+    }
+    .search-bar {
+        flex-direction: column;
+        align-items: flex-start;
+
+    }
+    .search-bar input{
+        margin-left: 0;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+    .search-bar > div{
+        margin-top: 3px;
+
+        box-sizing: border-box;
+        width: 100% !important;
+    }
 }
