@@ -92,6 +92,28 @@ function parse_demo($demo_path, $freq_demo_parsed){
                 $bdd->rollback(); // en cas d'érreur, annule les modifications.
                 throw $e;
             }
+
+            //add player in round for this round
+            foreach($players as $player_id=>$player_name){
+                $tick = intval( $tick_obj['nr']/( $demo_tickrate/$freq_demo_parsed ));
+
+                //verify if not already in, beacause csgo demo are broken
+                $request = "SELECT * FROM $dbBase.Player_in_Round WHERE FK_Player='$player_name' AND FK_Round='$round_id' ;";
+                $req = $bdd->prepare($request);
+                $req->execute();
+                if(count($req->fetchAll()) == 0){
+                    $request = $bdd->prepare("INSERT INTO $dbBase.Player_in_Round (FK_Player, FK_Round, side) VALUES (?, ?, ?)");
+                    try {
+                        $bdd->beginTransaction();
+                        $player_side = get_last_player_side($demo, $tick, $player_id);
+                        $request->execute([$player_name, $round_id, $player_side]);
+                        $bdd->commit(); // Valide la modification de la base de données               
+                    }catch (Exception $e){
+                        $bdd->rollback(); // en cas d'érreur, annule les modifications.
+                        throw $e;
+                    }
+                }
+            }
         }
         $end_round_event = get_event_in_tick($tick_obj, "round_ended");
         if( $end_round_event ){

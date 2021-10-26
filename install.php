@@ -123,6 +123,7 @@ try {
 	$requete = "CREATE TABLE $dbBase.Player_in_Round(
         FK_Player VARCHAR(255) NOT NULL,
         FK_Round INT UNSIGNED NOT NULL,
+        side INT NOT NULL,
         PRIMARY KEY (FK_Round, FK_Player),
     
         FOREIGN KEY(FK_Round) REFERENCES Rounds(id)

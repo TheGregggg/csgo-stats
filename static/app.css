@@ -156,13 +156,27 @@ main.container .card{
     margin-bottom: 15px;
     box-shadow: var(--main-bg-color) 0px 4px 12px;
 }
+main.container .card .left-item{
+    flex: 4;
+}
+main.container .card .right-item{
+    flex: 1;
+}
+
 main.container .card:first-child{
     margin-top: 15px;
 }
 main.container .card h2{
     font-size: 30px;
 }
-
+main.container .card.game-info{
+    display: flex;
+    align-items: center;
+}
+main.container .card.game-info .right-item{
+    display: flex;
+    justify-content: space-evenly;
+}
 main.container .card.game-info .date{
     padding-top: 5px;
     font-size: 15px;
@@ -175,24 +189,27 @@ main.container .card.scores li{
     list-style: none;
     padding: 10px 20px;
     border-bottom: 1px solid var(--main-fg-color);
-    display: flex;
-    
+    display: flex;   
 }
-main.container .card.scores li .left-item{
-    flex: 3;
+main.container .card.scores li.team{
+    background-color: var(--main-bg-color);
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
 }
 main.container .card.scores li .right-item{
+    display: flex;
+}
+main.container .card.scores li .right-item > span{
     flex: 1;
     display: flex;
     justify-content: space-evenly;
-}
-
-main.container .card.scores li:nth-child(even){
-    color: var(--accent-color);
-    border-bottom-color: var(--accent-color);
 }
 main.container .card.scores li:last-child{
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     border-bottom: 0;
+}
+main.container .card.scores li:first-child{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
