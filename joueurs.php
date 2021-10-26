@@ -12,7 +12,7 @@ $request = "SELECT p.Name AS name, count(pd.FK_Demo) AS games
 FROM Players AS p 
 JOIN Player_in_Demo as pd On p.Name = pd.FK_player
 GROUP BY p.Name
-ORDER BY Name;";
+ORDER BY games DESC, Name;";
 $req = $bdd->prepare($request);
 $req->execute();
 $players = $req->fetchAll();

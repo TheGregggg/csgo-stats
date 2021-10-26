@@ -156,6 +156,13 @@ main.container .card{
     margin-bottom: 15px;
     box-shadow: var(--main-bg-color) 0px 4px 12px;
 }
+main.container .s-card{
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    box-shadow: var(--main-bg-color) 0px 4px 12px;
+}
 main.container .card .left-item{
     flex: 4;
 }
@@ -265,6 +272,114 @@ main.container div.header{
     box-shadow: var(--accent-color-darker) 0px 4px 12px;
 }
 
+.player-card{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    background-color: var(--main-bg-color);
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+.player-card .title{
+    font-weight: 600;
+    margin-right: 10px;
+}
+.player-card .data{
+    font-weight: 600;
+    color: var(--accent-color);
+}
+.map-stats{
+    background-color: var(--main-bg-color);
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.map-stats .map-circle{
+    position: relative;
+}
+.map-stats .map-circle .map-img{
+    display: block;
+    width: 100%;
+    border-radius: 50%;
+    filter: blur(3px);
+    opacity: 0.4;
+}
+.map-stats .map-circle .map-border{
+    border-radius: 50%;
+    border: 2px solid var(--accent-color);
+    overflow: hidden;
+}
+.map-stats .map-circle .txt{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.map-stats .map-circle .map-name{
+    font-weight: 600;
+    font-size: 20px;
+}
+.map-stats .side_stats .graphs{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+}
+.map-stats .side_stats .t,
+.map-stats .side_stats .ct{
+    width: 100%;
+    height: 45px;
+    position: relative;
+}
+.map-stats .side_stats .t .graph{
+    background-color: var(--accent-color-darker);
+}
+.map-stats .side_stats .ct .graph{
+    background-color: var(--accent-color);
+}
+.map-stats .side_stats .t .graph,
+.map-stats .side_stats .ct .graph{
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+    border-radius: 5px;
+}
+.map-stats .side_stats .line{
+    background-color: var(--secondary-bg-color);
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 100%;
+    border-radius: 5px;
+}
+.map-stats .side_stats .winrate,
+.map-stats .side_stats .side-winrate{
+    font-weight: 600;
+    font-size: 20px;
+}
+.map-stats .side_stats .winrate{
+    color: var(--accent-color)
+}
+.weapon-stats{
+    background-color: var(--main-bg-color);
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+.weapon-stat{
+    color: var(--accent-color)
+}
 /* media queries */
 @media ( max-width : 1100px ){
     .container{
@@ -272,9 +387,6 @@ main.container div.header{
     }
 }
 @media ( max-width : 900px ){
-    .container{
-        width: 98%;
-    }
     main.container div.header{
         flex-direction: column;
     }
@@ -284,7 +396,20 @@ main.container div.header{
     .search-bar > div{
         display: flex;
         flex-direction: column;
-        
+    }
+    .row{
+        flex-direction: column;
+    }
+    .map-stats{
+        display: block;
+    }
+}
+@media only screen and (min-width: 45em){
+    .player-card{
+        flex-direction: column;
+    }
+    .player-card .title{
+        margin-right: 0;
     }
 }
 @media ( max-width : 550px ){
