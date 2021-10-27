@@ -104,7 +104,7 @@ else{
     $games_won = $games_result[1]['games'];
 }
 $totals_games = $games_won+$games_lost;
-$percentage_game_won = ($games_won*100)/$totals_games;
+$percentage_game_won = round(($games_won*100)/$totals_games);
 
 $request =  "SELECT map, (SUM(IF(nb_rounds-nb_win > nb_win, 0, 1))*100)/COUNT(nb_win)  as win_rate
 FROM (
@@ -185,7 +185,7 @@ for ($i=0; $i < count($maps_side_winrate); $i++) {
                     <div class="col-3 player-card"><span class="title">V/M</span>       <span class="data"><?php echo $total_kd;?></span></div>
                     <div class="col-3 player-card"><span class="title">+/-</span>       <span class="data"><?php echo $total_kills-$total_deaths;?></span></div>
                     <div class="col-3 player-card"><span class="title">Parties</span>   <span class="data"><?php echo $total_games;?></span></div>
-                    <div class="col-3 player-card"><span class="title">% Vict.</span>   <span class="data"><?php echo $percentage_game_won;?></span></div>
+                    <div class="col-3 player-card"><span class="title">Victoire</span>   <span class="data"><?php echo $percentage_game_won;?>%</span> </div>
                     <div class="col-3 player-card"><span class="title">Arme fav.</span> <span class="data"><?php echo $favorite_weapon;?></span></div>
                     <div class="col-3 player-card"><span class="title">Carte fav.</span><span class="data"><?php echo $favorite_map;?></span></div>
                 </div>
