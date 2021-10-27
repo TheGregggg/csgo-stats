@@ -5,6 +5,10 @@ include './components/demo_parser.php';
 $demo_path = $_FILES['demo']['tmp_name'];
 $freq_demo_parsed = 16;
 
+if (!file_exists('temp')) {
+    mkdir('temp');
+}
+
 // DEMO TO JSON PARSING
 //detect the os for cmd execution
 if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') { //its windows
