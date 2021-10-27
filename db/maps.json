@@ -1,47 +1,74 @@
 {
     "de_inferno" : {
         "Image" : "de_inferno_radar.png",
-        "Dim_x" : 0,
-        "Dim_y" : 0
+        "Img_ref_x": 505,
+        "Img_ref_y" : 410,
+        "Map_ref_x": 425,
+        "Map_ref_y" : 1803,
+        "Img_origin_x" : 421,
+        "Img_origin_y" : 773
     },
     "de_mirage" : {
         "Image" : "de_mirage_radar.png",
-        "Dim_x" : 0,
-        "Dim_y" : 0
+        "Img_ref_x": 336,
+        "Img_ref_y" : 390,
+        "Map_ref_x": -1553,
+        "Map_ref_y" : -232,
+        "Img_origin_x" : 653,
+        "Img_origin_y" : 332
     },
     "de_dust2" : {
         "Image" : "de_dust2_radar.png",
-        "Dim_x" : 0,
-        "Dim_y" : 0
-    },
-    "de_cache" : {
-        "Image" : "de_cache_radar.png",
-        "Dim_x" : 0,
-        "Dim_y" : 0
+        "Img_ref_x": 963,
+        "Img_ref_y" : 663,
+        "Map_ref_x": 1869,
+        "Map_ref_y" : 310,
+        "Img_origin_x" : 562,
+        "Img_origin_y" : 752
     },
     "de_train" : {
         "Image" : "de_train_radar.png",
-        "Dim_x" : 0,
-        "Dim_y" : 0
+        "Img_ref_x": 303,
+        "Img_ref_y" : 887,
+        "Map_ref_x": -1056,
+        "Map_ref_y" : -1776,
+        "Img_origin_x" : 512,
+        "Img_origin_y" : 494
     },
     "de_ancient" : {
         "Image" : "de_ancient_radar.png",
-        "Dim_x" : 0,
-        "Dim_y" : 0
+        "Img_ref_x": 159,
+        "Img_ref_y" : 182,
+        "Map_ref_x": -2144,
+        "Map_ref_y" : 1227,
+        "Img_origin_x" : 584,
+        "Img_origin_y" : 435
     },
     "de_nuke" : {
         "Image" : "de_nuke_radar.png",
-        "Dim_x" : 0,
-        "Dim_y" : 0
+        "Img_ref_x": 65,
+        "Img_ref_y" : 493,
+        "Map_ref_x": -2992,
+        "Map_ref_y" : -584,
+        "Img_origin_x" : 494,
+        "Img_origin_y" : 395
     },
     "de_vertgio" : {
         "Image" : "de_vertigo_radar.png",
-        "Dim_x" : 0,
-        "Dim_y" : 0
+        "Img_ref_x": 770,
+        "Img_ref_y" : 802,
+        "Map_ref_x": -80,
+        "Map_ref_y" : -1455,
+        "Img_origin_x" : 775,
+        "Img_origin_y" : 455
     },
     "de_overpass" : {
         "Image" : "de_overpass_radar.png",
-        "Dim_x" : 0,
-        "Dim_y" : 0
+        "Img_ref_x": 611,
+        "Img_ref_y" : 552,
+        "Map_ref_x": -1646,
+        "Map_ref_y" : -1088,
+        "Img_origin_x" : 925,
+        "Img_origin_y" : 307
     }
 }

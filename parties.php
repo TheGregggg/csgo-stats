@@ -14,9 +14,14 @@ ORDER BY Date DESC, id DESC;";
 $req = $bdd->prepare($request);
 $req->execute();
 $demos = $req->fetchAll();
-$last_demo_date = $demos[array_key_last($demos)]['date'];
 
-$first_demo_date = $demos[0]['date'] ;
+if(count($demos) == 0){
+    $last_demo_date = date("Y-m-d");
+    $first_demo_date = date("Y-m-d");
+}else{
+    $last_demo_date = $demos[array_key_last($demos)]['date'];
+    $first_demo_date = $demos[0]['date'] ;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">

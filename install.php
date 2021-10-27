@@ -54,8 +54,12 @@ try {
 	$requete = "CREATE TABLE $dbBase.Maps(
         Name VARCHAR(255) NOT NULL PRIMARY KEY,
         Image VARCHAR(255) NOT NULL,
-        Dimensions_x INT NOT NULL,
-        Dimensions_y INT NOT NULL
+        Img_ref_x INT NOT NULL,
+        Img_ref_y INT NOT NULL,
+        Map_ref_x INT NOT NULL,
+        Map_ref_y INT NOT NULL,
+        Img_origin_x INT NOT NULL,
+        Img_origin_y INT NOT NULL
     ) ENGINE = InnoDB;";
 	
 	$bdd->prepare($requete)->execute();
@@ -192,14 +196,14 @@ try {
 		throw $e;
 	}
 
-    $request = $bdd->prepare("INSERT INTO $dbBase.Maps (Name, Image, Dimensions_x, Dimensions_y) VALUES (?,?,?,?)");
+    $request = $bdd->prepare("INSERT INTO $dbBase.Maps (Name, Image, Img_ref_x, Img_ref_y, Map_ref_x, Map_ref_y, Img_origin_x, Img_origin_y) VALUES (?,?,?,?,?,?,?,?)");
 	try {
 		$bdd->beginTransaction();
 
         $maps_json_file = file_get_contents("db/maps.json");
         $maps_json = json_decode($maps_json_file, true);
         foreach($maps_json as $map_name=>$map_info){
-            $val = [$map_name, $map_info['Image'], $map_info['Dim_x'], $map_info['Dim_y']];
+            $val = [$map_name, $map_info['Image'], $map_info['Img_ref_x'], $map_info['Img_ref_y'], $map_info['Map_ref_x'], $map_info['Map_ref_y'], $map_info['Img_origin_x'], $map_info['Img_origin_y']];
             $request->execute($val);
         }
 

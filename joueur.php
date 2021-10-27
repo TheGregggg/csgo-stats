@@ -122,7 +122,7 @@ $req = $bdd->prepare($request);
 $req->execute();
 $maps_winrate = $req->fetchAll();
 
-$request =  "SELECT m.name AS name, COUNT(id) AS nb_games, m.Image AS img, m.Dimensions_x AS dim_x, m.Dimensions_y AS dim_y
+$request =  "SELECT m.name AS name, COUNT(id) AS nb_games, m.Image AS img, m.Img_ref_x, m.Img_ref_y, m.Map_ref_x, m.Map_ref_y, m.Img_origin_x, m.Img_origin_y
 FROM Player_in_demo AS pd
 JOIN Demos AS d ON pd.FK_demo = d.id
 JOIN Maps AS m ON d.FK_map = m.name
@@ -206,7 +206,57 @@ for ($i=0; $i < count($maps_side_winrate); $i++) {
             <div class="row">
                 <div class="col-6"><h3>Stats par cartes</h3></div>
             </div>
-            <?php foreach($maps_stats as $map){ ?>
+            <?php foreach($maps_stats as $map){ 
+                $img_size = getimagesize("./static/maps/light/".$map['img']);
+                $img_height = $img_size[1];
+                $img_width = $img_size[0];
+
+                $pixel_per_csgo_unite_x = ($map['Img_ref_x'] - $map['Img_origin_x'])/($map['Map_ref_x']);
+                $pixel_per_csgo_unite_y = ($map['Img_ref_y'] - $map['Img_origin_y'])/($map['Map_ref_y']);
+
+                $request =  "SELECT k.k_pos_x AS pos_x, k.k_pos_y AS pos_y
+                FROM Kills AS k 
+                JOIN Rounds AS r ON k.FK_round = r.id
+                JOIN Demos AS d ON r.FK_demo = d.id
+                WHERE k.FK_killer='$player_name' AND d.FK_Map = '". $map['name'] ."';";
+                $req = $bdd->prepare($request);
+                $req->execute();
+                $kills_list = $req->fetchAll();
+                
+                $points_kills = [];
+                foreach($kills_list as $kill){
+                    $pos_x = ($kill['pos_x'] * $pixel_per_csgo_unite_x) + $map['Img_origin_x'];
+                    $pos_x_percent = abs(($pos_x*100)/$img_width);
+                    
+                    $pos_y = ($kill['pos_y'] * $pixel_per_csgo_unite_y) + $map['Img_origin_y'];
+                    $pos_y_percent = abs(($pos_y*100)/$img_height);
+
+                    array_push($points_kills, ['x' => $pos_x_percent, 
+                    'y' => $pos_y_percent]);
+                }
+
+                $request =  "SELECT k.v_pos_x AS pos_x, k.v_pos_y AS pos_y
+                FROM Kills AS k 
+                JOIN Rounds AS r ON k.FK_round = r.id
+                JOIN Demos AS d ON r.FK_demo = d.id
+                WHERE k.FK_victim='$player_name' AND d.FK_Map = '". $map['name'] ."';";
+                $req = $bdd->prepare($request);
+                $req->execute();
+                $deaths_list = $req->fetchAll();
+                
+                $points_deaths = [];
+                foreach($deaths_list as $death){
+                    $pos_x = ($death['pos_x'] * $pixel_per_csgo_unite_x) + $map['Img_origin_x'];
+                    $pos_x_percent = abs(($pos_x*100)/$img_width);
+                    
+                    $pos_y = ($death['pos_y'] * $pixel_per_csgo_unite_y) + $map['Img_origin_y'];
+                    $pos_y_percent = abs(($pos_y*100)/$img_height);
+
+                    array_push($points_deaths, ['x' => $pos_x_percent, 
+                    'y' => $pos_y_percent]);
+                }
+                
+                ?>
                 <div class="row map-stats">
                     <div class="col-3 col-6-sm">
                         <div class="map-circle">
@@ -214,31 +264,71 @@ for ($i=0; $i < count($maps_side_winrate); $i++) {
                                 <img  class="map-img" src="./static/maps/light/<?php echo $map['img']; ?>">
                             </div>
                             <div class="txt">
-                                <span class="map-name"><?php echo $map['name']?></span>
-                                <span class="map-games">Joué <?php echo $map['nb_games']?>x</span>
+                                <span class="map-name"><?php echo $map['name'];?></span>
+                                <span class="map-games">Joué <?php echo $map['nb_games'];?>x</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-3 col-6-sm">
                         <div class="side_stats">
-                            <span class="ct-winrate side-winrate">CT :</span><span class="winrate"><?php echo round($map['win_rate_ct'])?>%</span>
+                            <span class="ct-winrate side-winrate">CT :</span><span class="winrate"><?php echo round($map['win_rate_ct']);?>%</span>
                             <div class="graphs">
                                 <div class="ct">
-                                    <div class="graph" style="width: <?php echo round($map['win_rate_ct'])?>%;"></div>
+                                    <div class="graph" style="width: <?php echo round($map['win_rate_ct']);?>%;"></div>
                                 </div>
                                 <div class="line"></div>
                                 <div class="t">
-                                    <div class="graph" style="width: <?php echo round($map['win_rate_t'])?>%;"></div>
+                                    <div class="graph" style="width: <?php echo round($map['win_rate_t']);?>%;"></div>
                                 </div>
                             </div>
-                            <span class="t-winrate side-winrate">T : </span><span class="winrate"><?php echo round($map['win_rate_t'])?>%</span>
+                            <span class="t-winrate side-winrate">T : </span><span class="winrate"><?php echo round($map['win_rate_t']);?>%</span>
                         </div>
                     </div>
                     <div class="col-3">
                         <span>Cartes des victimes</span>
+                        <div class="heatmap">
+                            <img src="./static/maps/light/<?php echo $map['img']; ?>">
+                            <div class="points p-<?php echo $map['name']; ?>">
+
+                            </div>
+                        </div>
+                        <script>
+                            var points = '<?php echo json_encode($points_kills);?>';
+                            points = JSON.parse(points);
+                            var points_elem = document.getElementsByClassName('p-<?php echo $map['name']; ?>')[0]
+                            points.forEach(point => {
+                                if(point['y'] < 100 && point['x'] < 100){
+                                    var p = document.createElement("div");
+                                    p.classList.add('point');
+                                    p.style.top = point['y'] + '%';
+                                    p.style.left = point['x'] + '%';
+                                    points_elem.appendChild(p)
+                                }
+                            });
+                        </script>
                     </div>
                     <div class="col-3">
                         <span>Cartes des morts</span>
+                        <div class="heatmap">
+                            <img src="./static/maps/light/<?php echo $map['img']; ?>">
+                            <div class="points p-<?php echo $map['name']; ?>">
+
+                            </div>
+                        </div>
+                        <script>
+                            var points = '<?php echo json_encode($points_deaths);?>';
+                            points = JSON.parse(points);
+                            var points_elem = document.getElementsByClassName('p-<?php echo $map['name']; ?>')[1]
+                            points.forEach(point => {
+                                if(point['y'] < 100 && point['x'] < 100){
+                                    var p = document.createElement("div");
+                                    p.classList.add('point');
+                                    p.style.top = point['y'] + '%';
+                                    p.style.left = point['x'] + '%';
+                                    points_elem.appendChild(p)
+                                }
+                            });
+                        </script>
                     </div>
                 </div>
             <?php } ?>
@@ -251,10 +341,18 @@ for ($i=0; $i < count($maps_side_winrate); $i++) {
                 <?php foreach($weapon_stats as $weapon){ ?>
                     <div class="row weapon-stats">
                         <div class="col-4 col-4-sm">
-                            <span class="weapon-name"><?php echo $weapon['name']?></span>
+                            <span class="weapon-name"><?php echo $weapon['name'];?></span>
                         </div>
-                        <div class="col-8 col-8-sm">
-                            <span class="weapon-stat"><?php echo $weapon['totalkill']?> </span>victimes
+                        <div class="col-2 col-2-sm">
+                            <span class="weapon-stat"><?php echo $weapon['totalkill'];?> </span>
+                        </div>
+                        <div class="col-2 col-2-sm">
+                            <span class="weapon-stat"><?php echo round(($weapon['totalkill']*100)/$total_kills);?> %</span>
+                        </div>
+                        <div class="col-4 col-4-sm">
+                            <div class="weapon-death-graph">
+                                <div class="graph" style="width: <?php echo round(($weapon['totalkill']*100)/$total_kills);?>%;"></div>
+                            </div>
                         </div>
                     </div>
                 <?php } ?>
@@ -266,10 +364,18 @@ for ($i=0; $i < count($maps_side_winrate); $i++) {
                 <?php foreach($weapon_stats_deaths as $weapon){ ?>
                     <div class="row weapon-stats">
                         <div class="col-4 col-4-sm">
-                            <span class="weapon-name"><?php echo $weapon['name']?></span>
+                            <span class="weapon-name"><?php echo $weapon['name'];?></span>
                         </div>
-                        <div class="col-8 col-8-sm">
-                            <span class="weapon-stat"><?php echo $weapon['totalkill']?> </span>morts
+                        <div class="col-2 col-2-sm">
+                            <span class="weapon-stat"><?php echo $weapon['totalkill'];?> </span>
+                        </div>
+                        <div class="col-2 col-2-sm">
+                            <span class="weapon-stat"><?php echo round(($weapon['totalkill']*100)/$total_deaths);?> %</span>
+                        </div>
+                        <div class="col-4 col-4-sm">
+                            <div class="weapon-death-graph">
+                                <div class="graph" style="width: <?php echo round(($weapon['totalkill']*100)/$total_deaths);?>%;"></div>
+                            </div>
                         </div>
                     </div>
                 <?php } ?>
