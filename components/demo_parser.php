@@ -1,8 +1,7 @@
 <?php
 include './components/parse_demo_functions.php';
 
-function parse_demo($demo_path, $freq_demo_parsed){
-        
+function parse_demo($demo_path, $freq_demo_parsed){   
     include '_bdd_info.php';
     // connexion to db
     try {

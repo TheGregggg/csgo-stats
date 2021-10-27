@@ -1,3 +1,17 @@
+<?php 
+include '_bdd_info.php';
+//Connexion à la base de données
+try {
+	$bdd = new PDO("mysql:dbname=$dbBase;host=$dbHost", $dbUser, $dbPassword, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+	$bdd->exec('SET NAMES utf8');
+} catch ( PDOException $e ) {
+    //db note created
+    header("Location: ./install");
+	echo 'Échec connexion PDO : ' . $e->getMessage() . "<br>\n";
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
