@@ -113,42 +113,47 @@ $game_rounds = $req->fetchAll()[0]['nbr_rounds'];
             </div>
         </div>
         
+        <div class="row">
         <?php $team_nbr = 1; foreach($teams as $player_in_team){ ?>
-            <div class="card scores">
-                <ul>
-                    <li class="team">
-                        <span class="left-item">Equipe <?php echo $team_nbr; ?></span> 
-                        <span class="right-item">
-                            <span class="kill">Victims</span> 
-                            <span class="death">Morts</span>
-                            <span class="kd">V/M</span>
-                        </span> 
-                    </li>
-                    <?php foreach($player_in_team as $player_name){ 
-                        $player = $players[$player_name]
-                        ?>
-                        <li>
-                            <span class="left-item name"><?php echo $player['name']; ?></span> 
+            <div class="col-6">
+                <div class="card scores">
+                    <ul>
+                        <li class="team">
+                            <span class="left-item">Equipe <?php echo $team_nbr; ?></span> 
                             <span class="right-item">
-                                <span class="kill"><?php echo $player['kills']; ?></span> 
-                                <span class="death"><?php echo $player['deaths']; ?></span>
-                                <span class="kd">
-                                    <?php 
-                                    $kd = round($player['kills']/$player['deaths'], 1);
-                                    if(intval($kd) == $kd){
-                                        $kd = number_format((float)$kd, 1, '.', '');
-                                    }
-                                    echo $kd; ?>
-                                </span>
-                            </span>
+                                <span class="kill">Victi.</span> 
+                                <span class="death">Morts</span>
+                                <span class="kd">V/M</span>
+                            </span> 
                         </li>
-                    <?php } $team_nbr += 1;?>
-                </ul>
+                        <?php foreach($player_in_team as $player_name){ 
+                            $player = $players[$player_name]
+                            ?>
+                            <a href="./joueur?name=<?php echo $player['name']; ?>">
+                                <li>
+                                    <span class="left-item name"><?php echo $player['name']; ?></span> 
+                                    <span class="right-item">
+                                        <span class="kill"><?php echo $player['kills']; ?></span> 
+                                        <span class="death"><?php echo $player['deaths']; ?></span>
+                                        <span class="kd">
+                                            <?php 
+                                            $kd = round($player['kills']/$player['deaths'], 1);
+                                            if(intval($kd) == $kd){
+                                                $kd = number_format((float)$kd, 1, '.', '');
+                                            }
+                                            echo $kd; ?>
+                                        </span>
+                                    </span>
+                                </li>
+                            </a>
+                        <?php } $team_nbr += 1;?>
+                    </ul>
+                </div>
             </div>
         <?php } ?>
+        </div>
                 
-           
-        <div class="card rounds"></div>
+        <!--<div class="card rounds"></div>-->
     </main>
 
     <?php include './components/footer.php'; ?>
