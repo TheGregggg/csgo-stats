@@ -14,8 +14,8 @@
         "Img_ref_y" : 390,
         "Map_ref_x": -1553,
         "Map_ref_y" : -232,
-        "Img_origin_x" : 653,
-        "Img_origin_y" : 332
+        "Img_origin_x" : 660,
+        "Img_origin_y" : 345
     },
     "de_dust2" : {
         "Image" : "de_dust2_radar.png",
