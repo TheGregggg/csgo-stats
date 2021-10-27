@@ -5,13 +5,16 @@
     <title>CSGO Stats</title>
 </head>
 <body>
+    <div class="hidden loading" >
+        <img src="./static/sync.svg">
+    </div>
     <?php include './components/header.php'; ?>
 
     <main class="container" id="home">
-        <form enctype="multipart/form-data" action="./parse_demo" method="post">
+        <form enctype="multipart/form-data" action="./parse_demo" method="post" cl>
             <label for="file" class="label-file">Choisir une démo (.dem)</label>
             <input id="file" class="input-file" type="file" name="demo" accept=".dem" required>
-            <input class="hidden" id="submit" type="submit" value="Validé">
+            <input class="hidden" id="submit" type="submit" onclick="activate_loading()" value="Validé">
 
             <script>
                 const file = document.querySelector('#file');
@@ -22,6 +25,13 @@
                     document.querySelector('.label-file').textContent = fileName;
                     submit_btn.classList.remove("hidden")
                 });
+
+                function activate_loading(){
+                    document.querySelector('.loading').classList.remove("hidden");
+                    document.querySelector('header').classList.add("hidden");
+                    document.querySelector('footer').classList.add("hidden");
+                    document.querySelector('main').style.display = "none";
+                }
             </script>
         </form>
     </main>
