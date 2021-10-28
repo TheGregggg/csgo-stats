@@ -67,7 +67,7 @@ if(count($demos) == 0){
                             </span> 
                         </a>
                         <span class="right-item">
-                            <span class="date"> <?php echo $demo['date']; ?> </span> 
+                            <span class="date"> <?php echo date('d/m/Y', strtotime($demo['date'])); ?> </span> 
                             <a class="del-btn" href="./api/delete_demo?id=<?php echo $demo['id'];?>">
                                 <img src="./static/trash.svg">
                             </a>
