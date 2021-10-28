@@ -1,9 +1,13 @@
+//script pour alterner les themes sombre et clair
+
 var darkMode = localStorage.getItem('darkMode')
 if(darkMode == null){
+    //si pas de theme dans le local storage, theme clair par default
     localStorage.setItem('darkMode', "light")
     darkMode = "light"
 }
 
+//couleur des differents themes
 const themes = {
     "dark": {
         "--main-bg-color": "#333",
@@ -34,6 +38,11 @@ function toggleDarkMode(){
     applyDarkMode()
 }
 function applyDarkMode(){
+    //applique le themes
+    // mets les variables css dans le html tag
+    // ajoute la class light/dark au body
+    // et mets le bon icon sur le bouton d'alternance
+
     theme = themes[darkMode];
     for (var variable in theme) {
         document.documentElement.style.setProperty(variable, theme[variable]);
@@ -54,6 +63,7 @@ function applyDarkMode(){
         document.body.classList.remove("light");
     }
 }
+//ajoute l'effet de transition apres le chargement de la page pour pas avoir de chargement avec fondu
 window.onload = function() {
     document.body.style.setProperty("transition", "color 0.2s linear 0s, background-color 0.2s linear 0s");
 };

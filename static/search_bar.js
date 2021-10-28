@@ -1,15 +1,19 @@
 function search_bar() {
-    // Declare variables
-    var input, filter, ul, li, a, i, txtValue;
+    //fonction cachant les joueurs qui n'ont pas le nom
+    //en compatibilité avec l'input de recherche
+
+    // Déclare variables utilisé
+    var input, filter, ul, li, elemWithTxt, txtValue;
     input = document.getElementById('search');
     filter = input.value.toUpperCase();
     ul = document.getElementById("ul");
     li = ul.getElementsByClassName('elem');
     
-    // Loop through all list items, and hide those who don't match the search query
+    // Boucle à travers tout les elems dans le li, 
+    //et cache tout ceux donc le texte ne match pas le texte dans le input
     for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("span")[0];
-        txtValue = a.textContent || a.innerText;
+        elemWithTxt = li[i].getElementsByTagName("span")[0];
+        txtValue = elemWithTxt.textContent || elemWithTxt.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
             li[i].style.display = "";
         } else {
@@ -18,19 +22,25 @@ function search_bar() {
     }
 }
 function search_bar_and_date() {
-    // Declare variables
+    //fonction cachant les parties qui n'ont pas le nom
+    //en compatibilité avec l'input de recherche
+    //ET les dates non présente dans l'interval
+
+    // Déclare variables utilisé
     var input, filter, date1, date2, ul, li, name_html, date_html, i, txtValue, dateValue, date;
 
     input = document.getElementById('search');
     filter = input.value.toUpperCase();
     
     date1 = new Date(document.getElementById('start').value);   
-    date1.setDate(date1.getDate() - 1);
+    date1.setDate(date1.getDate() - 1); //décale d'un jour en arrière
     date2 = new Date(document.getElementById('end').value);
     ul = document.getElementById("ul");
     li = ul.getElementsByClassName('elem');
     
-    // Loop through all list items, and hide those who don't match the search query
+    // Boucle à travers tout les elems dans le li, 
+    // et cache tout ceux donc le texte ne match pas le texte dans le input
+    // ET dont la date nest pas dans l'interval des deux dates
     for (i = 0; i < li.length; i++) {
         name_html = li[i].getElementsByTagName("span")[0];
         txtValue = name_html.textContent || name_html.innerText;

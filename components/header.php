@@ -6,8 +6,8 @@
             </span>
             <span class="center">
                 <ul class="links">
-                    <li class="link"><a href="./joueurs">Joueurs</a></li>
                     <li class="link"><a href="./parties">Parties</a></li>
+                    <li class="link"><a href="./joueurs">Joueurs</a></li>
                 </ul>
             </span>
             <span class="right">

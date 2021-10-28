@@ -8,6 +8,7 @@ try {
 	echo 'Échec connexion PDO : ' . $e->getMessage() . "<br>\n";
 }
 
+//récupère tout les joueurs de la bdd
 $request = "SELECT p.Name AS name, count(pd.FK_Demo) AS games
 FROM Players AS p 
 JOIN Player_in_Demo as pd On p.Name = pd.FK_player
@@ -32,7 +33,6 @@ $players = $req->fetchAll();
             <div class="search-bar right-item">
                 <span>Nom : </span>
                 <input onkeyup="search_bar()" type="text" name="search" id="search">
-                <!--<img src="./static/search.svg">-->
             </div>
         </div>
         <div class="players">

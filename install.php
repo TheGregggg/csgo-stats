@@ -1,7 +1,7 @@
 <html>
 <head>
     <?php include './components/header_tags.php'; ?>
-	<title> Installation de la base de données </title>
+	<title>Installation de la base de données</title>
 </head>
 <body>
     <?php include './components/header.php'; ?>
@@ -11,8 +11,6 @@
         <?php
 
         include './components/demo_parser.php';
-
-        //Informations de conenxtion à la base de données
         include '_bdd_info.php';
 
         //Connexion à la base de données
@@ -24,7 +22,6 @@
             // création de la base de données
             echo "<h1>Création de la base de données</h1>";
             $request = "CREATE DATABASE IF NOT EXISTS ".$dbBase." DEFAULT CHARACTER SET utf8";
-            //echo "Connexion possible avec PDO <br>\n";
             $bdd->prepare($request)->execute();
             echo "Base de données créée. <br>";
             
@@ -57,7 +54,7 @@
             $bdd->prepare($requete)->execute();
             echo "Table 'players' créée<br>";
 
-            // Création de la table map
+            // Création de la table maps
             $requete = "CREATE TABLE $dbBase.Maps(
                 Name VARCHAR(255) NOT NULL PRIMARY KEY,
                 Image VARCHAR(255) NOT NULL,
@@ -72,7 +69,7 @@
             $bdd->prepare($requete)->execute();
             echo "Table 'map' créée<br>";
 
-            // Création de la table weapon
+            // Création de la table weapons
             $requete = "CREATE TABLE $dbBase.Weapons(
                 id INT UNSIGNED NOT NULL PRIMARY KEY,
                 Name VARCHAR(255) NOT NULL,
@@ -149,7 +146,7 @@
             $bdd->prepare($requete)->execute();
             echo "Table 'Player_in_Round' créée<br>";
 
-            // Création de la table Damages
+            // Création de la table kills
             $requete = "CREATE TABLE $dbBase.Kills(
                 id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 tick INT NOT NULL,
@@ -181,22 +178,23 @@
             
             echo "<br>";
             echo "<h3>Ajout des Valeurs</h3>";
-            
+
+            // Ajoute les valeurs pour les armes en ouvrant weapon.json
             $request = $bdd->prepare("INSERT INTO $dbBase.Weapons (id, Name, Description, Magazine_size, Damage_per_bullet, Bullet_per_seconde) VALUES (?,?,?,?,?,?)");
             try {
                 $bdd->beginTransaction();
 
                 $weapons_json_file = file_get_contents("db/weapons.json");
                 $weapons_json = json_decode($weapons_json_file, true);
+
                 foreach($weapons_json as $weapon_name=>$weapon_stats){
                     $Bullet_per_Sec = $weapon_stats['Bullet_per_Sec'];
-                    if($Bullet_per_Sec != 0){ $Bullet_per_Sec = 1/$Bullet_per_Sec; }
+                    if($Bullet_per_Sec != 0){ $Bullet_per_Sec = 1/$Bullet_per_Sec; } //calculé des balles par seconde, car la valeur dans le json est le temps entre chaque tir
 
                     $val = [$weapon_stats['id'], $weapon_name, $weapon_stats['description'], $weapon_stats['magazine_size'], $weapon_stats['Damage_per_bullet'], $Bullet_per_Sec];
                     $request->execute($val);
                 }
-
-                $bdd->commit(); // Valide la modification de la base de données
+                $bdd->commit();
                 echo "Valeurs de la table 'Weapons' ajoutées.<br>";
 
             }catch (Exception $e){
@@ -204,6 +202,7 @@
                 throw $e;
             }
 
+            // Ajoute les valeurs pour les maps en ouvrant maps.json
             $request = $bdd->prepare("INSERT INTO $dbBase.Maps (Name, Image, Img_ref_x, Img_ref_y, Map_ref_x, Map_ref_y, Img_origin_x, Img_origin_y) VALUES (?,?,?,?,?,?,?,?)");
             try {
                 $bdd->beginTransaction();
@@ -215,7 +214,7 @@
                     $request->execute($val);
                 }
 
-                $bdd->commit(); // Valide la modification de la base de données
+                $bdd->commit();
                 echo "Valeurs de la table 'Maps' ajoutées.<br>";
 
             }catch (Exception $e){
@@ -223,12 +222,12 @@
                 throw $e;
             }
             
+            //ajoute 6 parties dans la base de données
             for ($i=1; $i < 7; $i++) { 
-                parse_demo("./db/games/demo$i.json", 16);
+                parse_demo("./db/games/demo$i.json", 16); //parse_demo -> /components/demo_parser.php
                 echo "Partie $i ajoutées.<br>";
             }
             
-
             echo "<br>";
             echo "Redirection vers la page d'accueil dans 3 secondes...";
             header('Refresh:3; url=./');

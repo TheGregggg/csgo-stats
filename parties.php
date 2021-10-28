@@ -8,6 +8,7 @@ try {
 	echo 'Échec connexion PDO : ' . $e->getMessage() . "<br>\n";
 }
 
+// recupérer tout les démos
 $request = "SELECT id, FK_Map AS map, Date AS date, Name as name
 FROM Demos
 ORDER BY Date DESC, id DESC;";
@@ -15,6 +16,7 @@ $req = $bdd->prepare($request);
 $req->execute();
 $demos = $req->fetchAll();
 
+//si il n'y a aucune parties, mets les dates du jour dans les bars de recherches sinon mets la date la plus récente et ancienne
 if(count($demos) == 0){
     $last_demo_date = date("Y-m-d");
     $first_demo_date = date("Y-m-d");
@@ -48,24 +50,21 @@ if(count($demos) == 0){
                     <span>Jusqu'a : </span>
                     <input onchange="search_bar_and_date()" type="date" id="end" name="date-end" value="<?php echo $first_demo_date; ?>">
                 </div>
-                <!--<img src="./static/search.svg">-->
             </div>
         </div>
         <div class="demos">
             <ul id="ul">
                 <?php foreach($demos as $demo){?>
                     <li class="elem"> 
-                        <a href="./demo?id=<?php echo $demo['id']; ?>">
-                            <span class="left-item">
-                                <?php 
-                                    if($demo['name'] != null){
-                                        echo $demo['name'];
-                                        echo " - ";
-                                    }
-                                ?>
-                                <?php echo $demo['map']; ?> 
-                            </span> 
-                        </a>
+                        <a href="./partie?id=<?php echo $demo['id']; ?>"> <span class="left-item">
+                            <?php 
+                                if($demo['name'] != null){
+                                    echo $demo['name'];
+                                    echo " - ";
+                                }
+                                echo $demo['map'];
+                            ?>
+                        </span> </a>
                         <span class="right-item">
                             <span class="date"> <?php echo date('d/m/Y', strtotime($demo['date'])); ?> </span> 
                             <a class="del-btn" href="./api/delete_demo?id=<?php echo $demo['id'];?>">
@@ -73,7 +72,6 @@ if(count($demos) == 0){
                             </a>
                         </span> 
                     </li>
-                    
                 <?php } ?>
             </ul>
         </div>

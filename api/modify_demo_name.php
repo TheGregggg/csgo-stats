@@ -11,17 +11,18 @@ try {
 
 $demo_id = $_GET['id'];
 if(! isset($demo_id)){
-    header("Location: ../"); //redirect if no demo id in url
+    header("Location: ../"); //redirige si pas d'id dans l'url
 }
 
 $new_name = $_POST['demo-name'];
 if(! isset($new_name)){
-    header("Location: ../"); //redirect if no new name in post
+    header("Location: ../"); //redirige si pas de nom dans le post
 }
 
+//modifie le nom de la démo avec son id
 $request = "UPDATE Demos SET Name = '$new_name' WHERE id='$demo_id';";
 $req = $bdd->prepare($request);
 $req->execute();
 
-header("Location: ../demo?id=$demo_id"); //redirect if no new name in post
+header("Location: ../partie?id=$demo_id"); //redirige vers la page de la demo
 ?>

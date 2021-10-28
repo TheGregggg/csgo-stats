@@ -8,6 +8,7 @@ try {
 	echo 'Échec connexion PDO : ' . $e->getMessage() . "<br>\n";
 }
 
+// récupérer toutes les armes
 $request = "SELECT * FROM Weapons;";
 $req = $bdd->prepare($request);
 $req->execute();
@@ -33,29 +34,28 @@ $weapons = $req->fetchAll();
             <div class="col-5 col-8-sm">Descriptif</div>
             <div class="col-1 col-4-sm">Chargeur</div>
             <div class="col-1 col-4-sm">Dégats</div>
-            <div class="col-3 col-4-sm">RPM</div>
+            <div class="col-3 col-4-sm">BPM</div>
         </div>
-        <?php foreach($weapons as $weapon){ 
-            if($weapon['Description'] != ""){?>
-        <div class="row" id="<?php echo $weapon['Name']; ?>">
-            <div class="col-2 col-4-sm"><?php echo $weapon['Name']; ?></div>
-            <div class="col-5 col-8-sm"><?php echo $weapon['Description']; ?></div>
-            <div class="col-1 col-4-sm">
-                <?php if($weapon['Magazine_size'] > 0){
-                    echo $weapon['Magazine_size'];
-                } ?>
+        <?php foreach($weapons as $weapon){ if($weapon['Description'] != ""){ //enlève les armes comme "inconnu"?>
+            <div class="row" id="<?php echo $weapon['Name']; ?>">
+                <div class="col-2 col-4-sm"><?php echo $weapon['Name']; ?></div>
+                <div class="col-5 col-8-sm"><?php echo $weapon['Description']; ?></div>
+                <div class="col-1 col-4-sm">
+                    <?php if($weapon['Magazine_size'] > 0){
+                        echo $weapon['Magazine_size'];
+                    } ?>
+                </div>
+                <div class="col-1 col-4-sm">
+                    <?php if($weapon['Damage_per_bullet'] > 0){
+                        echo $weapon['Damage_per_bullet'];
+                    } ?>
+                </div>
+                <div class="col-3 col-4-sm">
+                    <?php if($weapon['Bullet_per_seconde'] > 0){
+                        echo round($weapon['Bullet_per_seconde']*60);
+                    } ?>
+                </div>
             </div>
-            <div class="col-1 col-4-sm">
-                <?php if($weapon['Damage_per_bullet'] > 0){
-                    echo $weapon['Damage_per_bullet'];
-                } ?>
-            </div>
-            <div class="col-3 col-4-sm">
-                <?php if($weapon['Bullet_per_seconde'] > 0){
-                    echo round($weapon['Bullet_per_seconde']*60);
-                } ?>
-            </div>
-        </div>
         <?php }} ?>
     </main>
 
