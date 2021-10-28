@@ -271,7 +271,7 @@ for ($i=0; $i < count($maps_side_winrate); $i++) {
                     </div>
                     <div class="col-3 col-6-sm">
                         <div class="side_stats">
-                            <span class="ct-winrate side-winrate">CT :</span><span class="winrate"><?php echo round($map['win_rate_ct']);?>%</span>
+                            <span class="ct-winrate side-winrate">CT : </span><span class="winrate"><?php echo round($map['win_rate_ct']);?>%</span>
                             <div class="graphs">
                                 <div class="ct">
                                     <div class="graph" style="width: <?php echo round($map['win_rate_ct']);?>%;"></div>
