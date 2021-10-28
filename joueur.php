@@ -336,12 +336,12 @@ for ($i=0; $i < count($maps_side_winrate); $i++) {
         <div class="row">
             <div class="col-6 s-card">
                 <div class="row">
-                    <div class="col-6"><h3>Victimes avec armes</h3></div>
+                    <div class="col-12"><h3>Victimes avec armes</h3></div>
                 </div>
                 <?php foreach($weapon_stats as $weapon){ ?>
                     <div class="row weapon-stats">
                         <div class="col-4 col-4-sm">
-                            <span class="weapon-name"><?php echo $weapon['name'];?></span>
+                            <a class="weapon-name" href="./armes#<?php echo $weapon['name']; ?>"><?php echo $weapon['name'];?></a>
                         </div>
                         <div class="col-2 col-2-sm">
                             <span class="weapon-stat"><?php echo $weapon['totalkill'];?> </span>
@@ -359,12 +359,12 @@ for ($i=0; $i < count($maps_side_winrate); $i++) {
             </div>
             <div class="col-6 s-card">
                 <div class="row">
-                    <div class="col-6"><h3>Morts contre armes</h3></div>
+                    <div class="col-12"><h3>Morts contre armes</h3></div>
                 </div>
                 <?php foreach($weapon_stats_deaths as $weapon){ ?>
                     <div class="row weapon-stats">
                         <div class="col-4 col-4-sm">
-                            <span class="weapon-name"><?php echo $weapon['name'];?></span>
+                            <a class="weapon-name" href="./armes#<?php echo $weapon['name']; ?>"><?php echo $weapon['name'];?></a>
                         </div>
                         <div class="col-2 col-2-sm">
                             <span class="weapon-stat"><?php echo $weapon['totalkill'];?> </span>

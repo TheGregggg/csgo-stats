@@ -573,6 +573,30 @@ main.container div.header{
     border-radius: 3px;
     z-index: 2;
 }
+
+/* Weapon css */
+.container#weapons .row{
+
+    padding: 10px 0;
+}
+.container#weapons .row .col-1{
+    text-align: right;
+}
+.container#weapons .row .col-3{
+    text-align: center;
+}
+.container#weapons .row#header{
+    margin: 10px 0;
+    border-bottom: 2px solid var(--accent-color);
+}
+.container#weapons .row:nth-child(odd){
+    background-color: var(--main-bg-color);
+    border-radius: 20px;
+}
+.container#weapons .row:last-child{
+    margin-bottom: 10px;
+}
+
 /* media queries */
 @media ( max-width : 1100px ){
     .container{

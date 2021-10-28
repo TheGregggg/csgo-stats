@@ -34,5 +34,12 @@ $request = "DELETE FROM Demos WHERE id='$demo_id';";
 $req = $bdd->prepare($request);
 $req->execute();
 
+$request = "DELETE p.* 
+FROM Players AS p 
+LEFT JOIN Player_in_Demo AS pd ON p.Name = pd.FK_player
+WHERE pd.FK_player IS NULL;";
+$req = $bdd->prepare($request);
+$req->execute();
+
 header("Location: ../parties"); //redirect if no new name in post
 ?>
