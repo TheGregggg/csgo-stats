@@ -52,7 +52,6 @@ header div.flex{
     width: 100%;
     height: 100px;
     display: inline-flex;
-    /*justify-content: space-between;*/
     align-items: center;
 }
 header div.flex span{
