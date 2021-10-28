@@ -252,7 +252,10 @@ for ($i=0; $i < count($maps_side_winrate); $i++) {
                     $pos_y = ($kill['pos_y'] * $pixel_per_csgo_unite_y) + $map['Img_origin_y'];
                     $pos_y_percent = abs(($pos_y*100)/$img_height);
 
-                    array_push($points_kills, ['x' => $pos_x_percent, 'y' => $pos_y_percent]); // ajoute à la listes des points le couple de coordonées
+                    //ajoute seulement si coords ne dépassent pas la carte, possibilité à cause des bugs de démos
+                    if(! ($pos_x_percent > 100 or $pos_x_percent < 0 or $pos_y_percent > 100 or $pos_y_percent < 0)){
+                        array_push($points_kills, ['x' => $pos_x_percent, 'y' => $pos_y_percent]); // ajoute à la listes des points le couple de coordonées
+                    }
                 }
 
                 //récupère la listes des positions des morts du joueur sur cette carte
@@ -274,7 +277,9 @@ for ($i=0; $i < count($maps_side_winrate); $i++) {
                     $pos_y = ($death['pos_y'] * $pixel_per_csgo_unite_y) + $map['Img_origin_y'];
                     $pos_y_percent = abs(($pos_y*100)/$img_height);
 
-                    array_push($points_deaths, ['x' => $pos_x_percent, 'y' => $pos_y_percent]);
+                    if(! ($pos_x_percent > 100 or $pos_x_percent < 0 or $pos_y_percent > 100 or $pos_y_percent < 0)){
+                        array_push($points_deaths, ['x' => $pos_x_percent, 'y' => $pos_y_percent]); // ajoute à la listes des points le couple de coordonées
+                    }
                 }
                 
                 ?>
