@@ -54,20 +54,19 @@ foreach($deaths as $death){
     $players[$death['name']]['deaths'] = $death['death'];
 }
 
-//get first round for teams  JOIN Player_in_Round AS p ON r.id = p.FK_Round
+//get first round for teams
 $request = "SELECT r.id
  FROM Rounds AS r
  JOIN Demos AS d ON r.FK_Demo = d.id
- WHERE d.id='$demo_id' 
- ORDER BY r.tick_start
- LIMIT 1;";
+ WHERE d.id='$demo_id' AND r.winner != 0 
+ ORDER BY r.tick_start;";
 $req = $bdd->prepare($request);
 $req->execute();
-$first_round = $req->fetchAll();
+$rounds = $req->fetchAll();
 
 $request = "SELECT p.FK_Player AS name, p.side AS side
  FROM Player_in_Round AS p
- WHERE p.FK_Round='". $first_round[0]['id'] ."';";
+ WHERE p.FK_Round='". $rounds[0]['id'] ."';";
 $req = $bdd->prepare($request);
 $req->execute();
 $players_first_round = $req->fetchAll();
@@ -169,6 +168,53 @@ $game_rounds = $req->fetchAll()[0]['nbr_rounds'];
             </div>
         <?php } ?>
         </div>
+
+        <div class="row">
+            <div class="col-12">
+                <h2>Rounds : </h2>
+            </div>
+        </div>
+        <?php $round_nbr=1; foreach($rounds as $round){
+            //get first round for teams
+            $request = "SELECT k.FK_killer AS killer, k_pr.side AS side, k.FK_victim AS victim, w.Name AS weapon
+            FROM Kills AS k
+            JOIN Weapons AS w ON k.FK_killed_with_weapon = w.id
+            JOIN Player_in_Round AS k_pr ON k.FK_killer=k_pr.FK_player
+            WHERE k.FK_Round='". $round['id'] ."' 
+            AND k_pr.FK_round='". $round['id'] ."' 
+            ORDER BY k.tick;";
+            $req = $bdd->prepare($request);
+            $req->execute();
+            $kills_this_round = $req->fetchAll();
+        ?>
+            <div class="row card round">
+                <div class="col-6 round-info">
+                    <h4 class="col-12 col-6-sm">Rounds</h4>
+                    <h4 class="col-12 col-6-sm"><?php echo $round_nbr; ?> </h4>
+                </div>
+                <div class="col-6">                
+                    <ul>
+                        <?php foreach($kills_this_round as $kill){ 
+                            ?>
+                            <li class="side-<?php echo $kill['side']; ?>"> 
+                                <a href="./joueur?name=<?php echo $kill['killer']; ?>">
+                                <?php echo $kill['killer']; ?>
+                                </a>
+                                <span>a tué</span>
+                                <a href="./joueur?name=<?php echo $kill['victim']; ?>">
+                                <?php echo $kill['victim']; ?>
+                                </a>
+                                <span>avec</span> 
+                                <a href="./amres#<?php echo $kill['weapon']; ?>">
+                                <?php echo $kill['weapon']; ?>
+                                </a>
+                            </li>
+                            
+                        <?php }?>
+                    </ul>
+                </div>
+            </div>
+        <?php $round_nbr+=1;} ?>
                 
         <!--<div class="card rounds"></div>-->
     </main>

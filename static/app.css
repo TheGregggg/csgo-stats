@@ -355,9 +355,38 @@ body.light a.del-btn:hover{
     width: auto;
     height: 15px;
 }
+.round{
+    width: fit-content;
+    margin: 0 auto;
+}
+.round-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.round-info h4{
+    width: fit-content;
+}
+.round-info h4:last-child{
+    font-size: clamp(20px, 13vw, 150px);
+    color: var(--accent-color);
+    font-weight: 100;
+}
+.round li{
+    margin: 5px 0;
+    padding: 5px 10px;
+    border: 2px var(--main-bg-color) solid;
+    border-radius: 30px;
+    width: fit-content;
+    list-style: none;
+}
+.round li a{
+    color: var(--accent-color);
+}
 
 
-@media ( max-width : 900px ){
+@media ( max-width : 45em ){
     .container#demo .card.game-info{
         flex-direction: column;
     }
@@ -368,6 +397,14 @@ body.light a.del-btn:hover{
         flex: auto;
         margin-top: 10px;
         width: 100%;
+    }
+    .round-info{
+        display: block;
+    }
+    .round-info h4:last-child{
+        font-size: initial;
+        font-weight: 700;
+        color: var(--accent-color);
     }
 }
 
@@ -576,7 +613,6 @@ main.container div.header{
 
 /* Weapon css */
 .container#weapons .row{
-
     padding: 10px 0;
 }
 .container#weapons .row .col-1{
@@ -584,6 +620,9 @@ main.container div.header{
 }
 .container#weapons .row .col-3{
     text-align: center;
+}
+.container#weapons .row .col-2{
+    text-transform: capitalize;
 }
 .container#weapons .row#header{
     margin: 10px 0;
