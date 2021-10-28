@@ -215,8 +215,6 @@ $game_rounds = $req->fetchAll()[0]['nbr_rounds'];
                 </div>
             </div>
         <?php $round_nbr+=1;} ?>
-                
-        <!--<div class="card rounds"></div>-->
     </main>
 
     <?php include './components/footer.php'; ?>
