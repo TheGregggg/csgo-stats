@@ -205,7 +205,7 @@ $game_rounds = $req->fetchAll()[0]['nbr_rounds'];
                                 <?php echo $kill['victim']; ?>
                                 </a>
                                 <span>avec</span> 
-                                <a href="./amres#<?php echo $kill['weapon']; ?>">
+                                <a href="./armes#<?php echo $kill['weapon']; ?>">
                                 <?php echo $kill['weapon']; ?>
                                 </a>
                             </li>
