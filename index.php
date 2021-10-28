@@ -25,7 +25,7 @@ try {
     <?php include './components/header.php'; ?>
 
     <main class="container" id="home">
-        <form enctype="multipart/form-data" action="./parse_demo" method="post" cl>
+        <form enctype="multipart/form-data" action="./parse_demo" method="post" >
             <label for="file" class="label-file">Choisir une démo (.dem)</label>
             <input id="file" class="input-file" type="file" name="demo" accept=".dem" required>
             <input class="hidden" id="submit" type="submit" onclick="activate_loading()" value="Validé">

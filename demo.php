@@ -13,7 +13,7 @@ if(! isset($demo_id)){
     header("Location: ./"); //redirect if no demo id in url
 }
 
-$request = "SELECT * FROM Demos JOIN Maps ON Demos.FK_Map = Maps.Name WHERE Demos.id='$demo_id' ;";
+$request = "SELECT d.id as id, d.Name as Name, d.Date as Date, Maps.Name as map_name FROM Demos as d JOIN Maps ON d.FK_Map = Maps.Name WHERE d.id='$demo_id' ;";
 $req = $bdd->prepare($request);
 $req->execute();
 $demo_info = $req->fetchAll()[0];
@@ -103,13 +103,30 @@ $game_rounds = $req->fetchAll()[0]['nbr_rounds'];
 
     <main class="container" id="demo">
         <div class="card game-info">
-            <div class="left-item">
-                <h2 class="map"><?php echo $demo_info['Name']; ?></h2>
-                <p class="date">Analysé le <?php echo date('d/m/Y', $timestamp); ?></p>
+            <div class="left-item demo-info">
+                <form action="./api/modify_demo_name?id=<?php echo $demo_id;?>" method="POST" >
+                    <input type="text" name="demo-name" maxlength="200" id="input-demo-name" 
+                    <?php 
+                        if($demo_info['Name'] == null){
+                            echo 'placeholder="Nom de la démo"';
+                        }
+                        else{
+                            echo 'value="'. $demo_info['Name'] .'"';
+                        }?>
+                    >
+                    <input type="submit" id="input-submit"value="Modifié">
+                </form>
+                <p>
+                    <span class="map">Carte : <?php echo $demo_info['map_name']; ?></span>
+                    <span class="date">Analysé le <?php echo date('d/m/Y', $timestamp); ?></span>
+                </p>
             </div>
             <div class="right-item">
                 <span class="kill"><?php echo $game_kills; ?> Victims</span> 
                 <span class="rounds"><?php echo $game_rounds; ?> Rounds</span>
+                <a class="del-btn" href="./api/delete_demo?id=<?php echo $demo_id;?>">
+                    <img src="./static/trash.svg">
+                </a>
             </div>
         </div>
         

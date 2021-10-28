@@ -8,7 +8,7 @@ try {
 	echo 'Échec connexion PDO : ' . $e->getMessage() . "<br>\n";
 }
 
-$request = "SELECT id, FK_Map AS map, Date AS date
+$request = "SELECT id, FK_Map AS map, Date AS date, Name as name
 FROM Demos
 ORDER BY Date DESC, id DESC;";
 $req = $bdd->prepare($request);
@@ -32,12 +32,12 @@ if(count($demos) == 0){
 <body>
     <?php include './components/header.php'; ?>
 
-    <main class="container" id="players">
+    <main class="container" id="demos">
         <div class="header">
             <h2 class="left-item">Parties : </h2>
             <div class="search-bar right-item">
                 <div>
-                    <span>Carte : </span>
+                    <span>Nom : </span>
                     <input onkeyup="search_bar_and_date()" type="text" name="search" id="search">
                 </div>
                 <div>
@@ -54,14 +54,26 @@ if(count($demos) == 0){
         <div class="demos">
             <ul id="ul">
                 <?php foreach($demos as $demo){?>
-                    <a href="./demo?id=<?php echo $demo['id']; ?>">
-                        <li class="elem"> 
-                            <span class="left-item"> <?php echo $demo['map']; ?> </span> 
-                            <span class="right-item">
-                                <span class="date"> <?php echo $demo['date']; ?> </span> 
+                    <li class="elem"> 
+                        <a href="./demo?id=<?php echo $demo['id']; ?>">
+                            <span class="left-item">
+                                <?php 
+                                    if($demo['name'] != null){
+                                        echo $demo['name'];
+                                        echo " - ";
+                                    }
+                                ?>
+                                <?php echo $demo['map']; ?> 
                             </span> 
-                        </li>
-                    </a>
+                        </a>
+                        <span class="right-item">
+                            <span class="date"> <?php echo $demo['date']; ?> </span> 
+                            <a class="del-btn" href="./api/delete_demo?id=<?php echo $demo['id'];?>">
+                                <img src="./static/trash.svg">
+                            </a>
+                        </span> 
+                    </li>
+                    
                 <?php } ?>
             </ul>
         </div>

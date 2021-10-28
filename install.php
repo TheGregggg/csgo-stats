@@ -88,11 +88,12 @@
             // Création de la table demos
             $requete = "CREATE TABLE $dbBase.Demos(
                 id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                Name VARCHAR(255),
                 Date DATE NOT NULL,
                 FK_Map VARCHAR(255) NOT NULL,
                 FOREIGN KEY (FK_Map) REFERENCES Maps(Name)
-                    ON DELETE CASCADE
-                    ON UPDATE CASCADE
+                    ON DELETE RESTRICT
+                    ON UPDATE RESTRICT
             ) ENGINE = InnoDB;";
             
             $bdd->prepare($requete)->execute();
@@ -106,8 +107,8 @@
                 FK_demo INT UNSIGNED NOT NULL,
             
                 FOREIGN KEY(FK_demo) REFERENCES Demos(id)
-                    ON DELETE CASCADE
-                    ON UPDATE CASCADE
+                    ON DELETE RESTRICT
+                    ON UPDATE RESTRICT
             ) ENGINE = InnoDB;";
             
             $bdd->prepare($requete)->execute();
@@ -120,11 +121,11 @@
                 PRIMARY KEY (FK_Player, FK_Demo),
             
                 FOREIGN KEY(FK_Player) REFERENCES Players(Name)
-                    ON DELETE CASCADE
-                    ON UPDATE CASCADE,
+                    ON DELETE RESTRICT
+                    ON UPDATE RESTRICT,
                 FOREIGN KEY(FK_Demo) REFERENCES Demos(id)
-                    ON DELETE CASCADE
-                    ON UPDATE CASCADE
+                    ON DELETE RESTRICT
+                    ON UPDATE RESTRICT
             ) ENGINE = InnoDB;";
             
             $bdd->prepare($requete)->execute();
@@ -138,11 +139,11 @@
                 PRIMARY KEY (FK_Round, FK_Player),
             
                 FOREIGN KEY(FK_Round) REFERENCES Rounds(id)
-                    ON DELETE CASCADE
-                    ON UPDATE CASCADE,
+                    ON DELETE RESTRICT
+                    ON UPDATE RESTRICT,
                 FOREIGN KEY(FK_Player) REFERENCES Players(Name)
-                    ON DELETE CASCADE
-                    ON UPDATE CASCADE
+                    ON DELETE RESTRICT
+                    ON UPDATE RESTRICT
             ) ENGINE = InnoDB;";
             
             $bdd->prepare($requete)->execute();
@@ -162,17 +163,17 @@
                 FK_victim VARCHAR(255) NOT NULL,
             
                 FOREIGN KEY(FK_round) REFERENCES Rounds(id)
-                    ON DELETE CASCADE
-                    ON UPDATE CASCADE,
+                    ON DELETE RESTRICT
+                    ON UPDATE RESTRICT,
                 FOREIGN KEY(FK_Killed_with_weapon) REFERENCES Weapons(id)
-                    ON DELETE CASCADE
-                    ON UPDATE CASCADE,
+                    ON DELETE RESTRICT
+                    ON UPDATE RESTRICT,
                 FOREIGN KEY(FK_killer) REFERENCES Players(Name)
-                    ON DELETE CASCADE
-                    ON UPDATE CASCADE,
+                    ON DELETE RESTRICT
+                    ON UPDATE RESTRICT,
                 FOREIGN KEY(FK_victim) REFERENCES Players(Name)
-                    ON DELETE CASCADE
-                    ON UPDATE CASCADE
+                    ON DELETE RESTRICT
+                    ON UPDATE RESTRICT
             ) ENGINE = InnoDB;";
             
             $bdd->prepare($requete)->execute();

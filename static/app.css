@@ -97,11 +97,21 @@ header #dark-mode-btn img{
 
 /* FOOTER CSS */
 footer{
-    height: 40px;
+    height: 60px;
     background-color: var(--main-bg-color);
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
+    flex-direction: column;
+}
+footer p{
+    font-size: 14px;
+}
+footer p.bdd{
+    font-size: 12px;
+}
+footer p.bdd a{
+    color: var(--secondary-fg-color);
 }
 
 /* HOME CSS */
@@ -210,11 +220,6 @@ main.container .card.game-info .right-item{
     display: flex;
     justify-content: space-evenly;
 }
-main.container .card.game-info .date{
-    padding-top: 5px;
-    font-size: 15px;
-    color: var(--secondary-fg-color);
-}
 main.container .card.scores{
     padding: 0;
 }
@@ -248,8 +253,125 @@ main.container .card.scores li:first-child{
     border-top-right-radius: 20px;
 }
 
-/* players and demos pages*/
+/* demo css */
+.demo-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.demo-info form{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.demo-info form #input-demo-name{
+    flex: auto;
+    padding: 2px 10px;
+    width: 100%;
+    font-size: 25px;
+    border: 0;
+    border-bottom: 2px solid var(--accent-color);
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--main-fg-color);
+}
+.demo-info form #input-demo-name::placeholder{
+    color: var(--secondary-fg-color);
+}
+.demo-info form #input-submit{
+    flex: 0;
+    margin-left: 10px;
+    padding: 5px 20px ;
+    height: fit-content;
+    border: 0;
+    border-radius: 30px;
+    color: var(--main-fg-color);
+    background-color: var(--accent-color);
+    transition: background-color 0.2s;
+}
+body.light .demo-info form #input-demo-name{
+    border-bottom-color: var(--accent-color-darker);
+}
+body.light .demo-info form #input-submit{
+    color: var(--secondary-bg-color);
+    background-color: var(--accent-color-darker);
+}
+.demo-info .date,
+.demo-info .map{
+    padding-top: 5px;
+    font-size: 15px;
+    color: var(--secondary-fg-color);
+}
+.demo-info .date{
+    margin-left: 5px;
+}
+.container#demo .card.game-info .right-item{
+    align-items: center;
+}
 
+a.del-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--accent-color);
+    transition: background-color 0.2s;
+}
+a.del-btn img{
+    filter: invert(100%);
+}
+body.light a.del-btn{
+    background-color: var(--accent-color-darker);
+}
+
+.demo-info form #input-submit:hover,
+a.del-btn:hover{
+    background-color: var(--accent-color-darker);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+body.light .demo-info form #input-submit:hover,
+body.light a.del-btn:hover{
+    background-color: var(--accent-color);
+}
+
+.container#demo a.del-btn{
+    width: 45px;
+    height: 30px;
+    border-radius: 30px;
+}
+.container#demo a.del-btn img{
+    width: auto;
+    height: 25px;
+}
+
+.demos a.del-btn{
+    width: 35px;
+    height: 100%;
+    border-radius: 30px;
+    margin-left: 10px;
+}
+.demos a.del-btn img{
+    width: auto;
+    height: 15px;
+}
+
+
+@media ( max-width : 900px ){
+    .container#demo .card.game-info{
+        flex-direction: column;
+    }
+    .container#demo .card.game-info .left-item{
+        flex: auto;
+    }
+    .container#demo .card.game-info .right-item{
+        flex: auto;
+        margin-top: 10px;
+        width: 100%;
+    }
+}
+
+/* players and demos pages*/
 main.container div.header{
     display: flex;
     justify-content: space-between;
@@ -261,7 +383,6 @@ main.container div.header{
     justify-content: end;
     align-items: center;
 }
-
 .search-bar input{
     margin-left: 5px;
     border: 2px solid var(--accent-color);
@@ -298,6 +419,11 @@ main.container div.header{
     border-radius: 20px;
     margin-bottom: 8px;
     box-shadow: var(--accent-color-darker) 0px 4px 12px;
+}
+.players li right-item,
+.demos   li .right-item{
+    display: flex;
+    justify-content: space-around;
 }
 
 /* PLAYER CSS */

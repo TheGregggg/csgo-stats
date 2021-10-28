@@ -30,7 +30,7 @@ $players = $req->fetchAll();
         <div class="header">
             <h2 class="left-item">Joueurs : </h2>
             <div class="search-bar right-item">
-                <span>Carte : </span>
+                <span>Nom : </span>
                 <input onkeyup="search_bar()" type="text" name="search" id="search">
                 <!--<img src="./static/search.svg">-->
             </div>
