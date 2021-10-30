@@ -81,7 +81,7 @@ $req = $bdd->prepare($request);
 $req->execute();
 $favorite_map = $req->fetchAll()[0]['name'];
 
-//récupère le nombre de parti esgagné et le nombre de parties perdu
+//récupère le nombre de parties gagné et le nombre de parties perdu
 $request =  "SELECT COUNT(id) as games, IF(nb_rounds-nb_win > nb_win, 0, 1) as won
 FROM (
     SELECT d.id as id, COUNT(IF(pr.side = r.winner, 1, NULL)) AS nb_win, COUNT(IF(r.winner != 0, 1, NULL)) AS nb_rounds
