@@ -112,7 +112,7 @@ function parse_demo($demo_path, $freq_demo_parsed){
                 Pour récupérer les informations sur un joueur, on va regardé dans les snapshots de la parties
                 Ces snapshots sont pris à interval régulière, ici cest $freq_demo_parsed
                 Le tick actuel est celui en jeu et on aimerait avoir l'info du tick le plus proche de celui ci par les snapshots
-                On calcul donc le ratio entre la freq de la demo initial et converti (freq des snapshpts), ici $demo_tickrate/$freq_demo_parsed
+                On calcul donc le ratio entre la freq de la demo initial et converti (freq des snapshots), ici $demo_tickrate/$freq_demo_parsed
                 Et on divise le tick actuel par ce ratio, on le transform ensuit en entier
                 Comme les snapshots est une liste on peut directement appelé la snapshot 
                 au tick voulu avec le nombre calculé precedement
