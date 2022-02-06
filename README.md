@@ -1,5 +1,5 @@
 # csgo-stats
-analyse de stats csgo via des démo
+Application web permettant l'analyse de stats CSGO en uploadant ses démos
 LAMaP Stack 
 
 Made with love by Greg and Tom
